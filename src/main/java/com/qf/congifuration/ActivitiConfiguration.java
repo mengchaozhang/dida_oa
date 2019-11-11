@@ -34,7 +34,7 @@ public class ActivitiConfiguration {
         springProcessEngineConfiguration.setDatabaseSchemaUpdate("true");
         Resource[] resources = new Resource[0];
         try {
-            resources = new PathMatchingResourcePatternResolver().getResources("classpath*:bpmn/*/bpmn");
+            resources = new PathMatchingResourcePatternResolver().getResources("classpath*:bpmn/*.bpmn");
         } catch (IOException e) {
             e.printStackTrace();
         }
