@@ -40,8 +40,9 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSuccessUrl("/index");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unauth");
         HashMap<String, String> map = new HashMap<>();
-        map.put("login", "anon");
-        map.put("goLogin", "anon");
+        map.put("/login", "anon");
+        map.put("/goLogin", "anon");
+        map.put("/index", "anon");
         map.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
