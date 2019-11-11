@@ -15,4 +15,19 @@ public class TestController {
     public String index() {
         return "index";
     }
+
+    @RequestMapping("test")
+    public String test() {
+        return "test";
+    }
+
+    @RequestMapping("holiday")
+    public String holiday() {
+        return "holiday";
+    }
+
+    @RequestMapping("wait")
+    public String waits() {
+        return "wait_approval";
+    }
 }
