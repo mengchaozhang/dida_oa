@@ -5,6 +5,12 @@
 <mapper namespace="com.qf.mapper.WeekReportMapper">
 
     <insert id="addWeekReport" parameterType="com.qf.pojo.WeekReport">
-        s
+        insert into weekreport (title, create_date, info, sid, score, is_delete) values (title, createDate, info, student.sid, score, isDelete)
     </insert>
+    <update id="updateWeekReport" parameterType="com.qf.pojo.WeekReport">
+        update weekreport set is_delete=#{is_delete} where wid=#{wid}
+    </update>
+    <delete id="deleteWeekReport" parameterType="int">
+        delete from weekreport where wid=#{wid}
+    </delete>
 </mapper>
