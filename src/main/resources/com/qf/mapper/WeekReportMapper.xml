@@ -13,4 +13,76 @@
     <delete id="deleteWeekReport" parameterType="int">
         delete from weekreport where wid=#{wid}
     </delete>
+    <select id="getScoreByWid" parameterType="int" resultType="java.lang.String">
+        select score from weekreport where wid=#{wid}
+    </select>
+    <select id="getWeekReportByWid" parameterType="int" resultMap="weekReportMap">
+        select * from weekreport where wid=#{wid}
+    </select>
+
+    <resultMap id="weekReportMap" type="com.qf.pojo.WeekReport">
+        <id property="wid" column="wid"/>
+        <result property="title" column="title"/>
+        <result property="createDate" column="crate_date"/>
+        <result property="info" column="info"/>
+        <result property="score" column="score"/>
+        <result property="isDelete" column="is_delete"/>
+        <association property="student" resultMap="studentMap"/>
+    </resultMap>
+    <resultMap id="studentMap" type="com.qf.pojo.Student">
+        <id property="sid" column="sid"/>
+        <result property="sname" column="sname"/>
+        <result property="ssex" column="ssex"/>
+        <result property="sage" column="sage"/>
+        <result property="sphone" column="sphone"/>
+        <association property="classes" resultMap="classesMap"/>
+        <association property="user" resultMap="userMap"/>
+    </resultMap>
+    <resultMap id="classesMap" type="com.qf.pojo.Classes">
+        <id property="cid" column="cid"/>
+        <result property="cname" column="cname"/>
+        <result property="stage" column="stage"/>
+        <association property="course" resultMap="courseMap"/>
+        <association property="teacher" resultMap="employeeMap"/>
+        <association property="headmaster" resultMap="employeeMap"/>
+    </resultMap>
+    <resultMap id="courseMap" type="com.qf.pojo.Course">
+        <id property="courseId" column="course_cid"/>
+        <result property="courseName" column="course_name"/>
+    </resultMap>
+    <resultMap id="employeeMap" type="com.qf.pojo.Employee">
+        <id property="eid" column="eid"/>
+        <result property="ename" column="ename"/>
+        <result property="esex" column="esex"/>
+        <result property="eage" column="eage"/>
+        <result property="ephone" column="ephone"/>
+        <association property="user" resultMap="userMap"/>
+    </resultMap>
+    <resultMap id="userMap" type="com.qf.pojo.User">
+        <id property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="rolename" column="rolename"/>
+    </resultMap>
+    <select id="getWeekReportBySidLikeTitle" parameterType="java.lang.String" resultMap="weekReportMap">
+        select * from weekreport
+         <where>
+             <if test="arg0 != null">
+                 sid=#{sid}
+             </if>
+             <if test="arg1 != null">
+                and title like "%"#{name}"%"
+             </if>
+         </where>
+    </select>
+    <select id="getWeekReportBySidList" parameterType="java.util.ArrayList" resultMap="weekReportMap">
+        select * from weekreport
+        <where>
+            sid in
+            <foreach collection="list" item="i" open="(" close=")" separator=",">
+                #{i}
+            </foreach>
+        </where>
+    </select>
+
 </mapper>

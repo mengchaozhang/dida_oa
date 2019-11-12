@@ -78,7 +78,7 @@ public class Classes {
 
     @Override
     public String toString() {
-        return "Classes{" +
+        return "ClassesMapper{" +
                 "cid=" + cid +
                 ", cname='" + cname + '\'' +
                 ", course=" + course +

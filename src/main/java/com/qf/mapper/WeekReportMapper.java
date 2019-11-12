@@ -12,6 +12,13 @@ public interface WeekReportMapper {
 
     public int updateWeekReport(WeekReport weekReport);
 
-    public List<WeekReport> getWeekReportLikeTitle(String Title);
+    public WeekReport getWeekReportByWid(int wid);
+
+    public String getScoreByWid(int wid);
+
+    public List<WeekReport> getWeekReportBySidLikeTitle(int sid, String title);
+
+    public List<WeekReport> getWeekReportBySidList(List<Integer> sidList);
+
 
 }
