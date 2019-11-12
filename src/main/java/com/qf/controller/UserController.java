@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @RequestMapping("goLogin")
-    public String login(User user, HttpSession session){
+    public String login(User user, HttpSession session, HttpServletRequest request){
         SecurityUtils.setSecurityManager(securityManager);
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getUsername(),user.getPassword());
@@ -37,8 +38,14 @@ public class UserController {
             subject.login(usernamePasswordToken);
             if(subject.isAuthenticated()){
                 User user1 = getRoleService.getUserByUsername(user.getUsername());
-                session.setAttribute(user1.getRolename(),user1);
-                return "index";
+                session.setAttribute("user",user1);
+                System.out.println(user1);
+                if ("teacher".equals(user1.getRolename()) || "headmaster".equals(user1.getRolename()) || "boss".equals(user1.getRolename())) {
+                    request.setAttribute("username", getRoleService.getEnameByUid(user1.getUid()));
+                } else {
+                    request.setAttribute("username", getRoleService.getSnameByUid(user1.getUid()));
+                }
+                return "test";
             }
         }catch (Exception e){
             e.printStackTrace();
