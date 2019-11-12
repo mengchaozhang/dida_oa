@@ -2,13 +2,14 @@ package com.qf.service;
 
 import com.qf.mapper.CourseMapper;
 import com.qf.pojo.Course;
+import com.qf.service.SuperAdmin_CourseService;
 import org.apache.shiro.cache.CacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class SuperAdmin_CourseService_impl implements SuperAdmin_CourseService{
+public class SuperAdmin_CourseService_impl implements SuperAdmin_CourseService {
 @Autowired
 private CourseMapper courseMapper;
 

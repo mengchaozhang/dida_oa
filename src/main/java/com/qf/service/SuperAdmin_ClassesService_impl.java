@@ -2,6 +2,7 @@ package com.qf.service;
 
 import com.qf.mapper.ClassesMapper;
 import com.qf.pojo.Classes;
+import com.qf.service.SuperAdmin_ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class SuperAdmin_ClassesService_impl implements SuperAdmin_ClassesService
 
     @Override
     public List<Classes> BJCK(Classes classes) {
-        List<Classes> list= classesMapper.getClassesCK(classes);
+        List<Classes> list= classesMapper. getClassesCK(classes);
         return list;
     }
 
