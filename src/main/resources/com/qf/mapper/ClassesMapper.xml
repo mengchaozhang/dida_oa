@@ -22,7 +22,7 @@
         <result property="ephone" column="ephone"></result>
         <association property="user" column="uid" resultMap="usermap" javaType="user"></association>
     </resultMap>
-    <resultMap id="Classmap" type="classer">
+    <resultMap id="Classmap" type="classes">
         <id property="cid" column="cid"></id>
         <result property="cname" column="cname"></result>
         <result property="stage" column="stage"></result>
@@ -64,7 +64,7 @@
         </if>
     </trim>
     </insert>
-    <update id="updateClassesXG" parameterType="classer">
+    <update id="updateClassesXG" parameterType="classes">
         update classes
         <set>
             <if test="cname!=null">
