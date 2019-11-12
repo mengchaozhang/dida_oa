@@ -42,7 +42,7 @@ public class ShiroConfiguration {
         HashMap<String, String> map = new HashMap<>();
         map.put("/login", "anon");
         map.put("/goLogin", "anon");
-        map.put("/**", "anon");
+        map.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }

@@ -40,12 +40,12 @@ public class UserController {
                 User user1 = getRoleService.getUserByUsername(user.getUsername());
                 session.setAttribute("user",user1);
                 System.out.println(user1);
-                if ("teacher".equals(user1.getRolename()) || "headmaster".equals(user1.getRolename()) || "boss".equals(user1.getRolename())) {
-                    request.setAttribute("username", getRoleService.getEnameByUid(user1.getUid()));
+                if ("teacher".equals(user1.getRolename()) || "headmaster".equals(user1.getRolename()) || "boss".equals(user1.getRolename()) || "admin".equals(user1.getRolename())) {
+                    session.setAttribute("username", getRoleService.getEnameByUid(user1.getUid()));
                 } else {
-                    request.setAttribute("username", getRoleService.getSnameByUid(user1.getUid()));
+                    session.setAttribute("username", getRoleService.getSnameByUid(user1.getUid()));
                 }
-                return "test";
+                return "index";
             }
         }catch (Exception e){
             e.printStackTrace();
