@@ -8,6 +8,6 @@ public interface RoleMapper {
     public List<Role> getRoleCK(Role role);
     public void addRoleTJ(Role role);
     public void updateRoleXG(Role role);
-    public void deleteRoleSC(Role role);
+    public void deleteRoleSC(Role role);;
 
 }

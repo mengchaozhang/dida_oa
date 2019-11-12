@@ -8,5 +8,5 @@ public interface CourseMapper {
     public List<Course>getCourseCK(Course course);
     public void addCourseTJ(Course course);
     public void updateCourseXG(Course course);
-    public void deleteCourseSC(Course course);
+    public void deleteCourseSC(Course course);;
 }
