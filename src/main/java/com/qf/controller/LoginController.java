@@ -3,5 +3,5 @@ package com.qf.controller;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class WeekReportController {
+public class LoginController {
 }
