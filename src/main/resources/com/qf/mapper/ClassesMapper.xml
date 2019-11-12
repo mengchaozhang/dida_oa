@@ -4,9 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.ClassesMapper">
 
-    <select id="getClassesByCname" parameterType="java.lang.String" resultMap="com.qf.mapper.WeekReportMapper.classesMap">
-        select * from classes where cname=#{cname}
-    </select>
     <resultMap id="usermap" type="user">
         <id property="uid" column="uid"></id>
         <result property="username" column="username"></result>
@@ -44,6 +41,9 @@
             </if>
             and classes.course_id=course.course_id and classes.teacher_eid=employee.eid and classes.headmaster_eid=employee.eid
         </where>
+    </select>
+    <select id="getClassesByCname" parameterType="java.lang.String" resultMap="com.qf.mapper.WeekReportMapper.classesMap">
+        select * from classes where cname=#{cname}
     </select>
     <insert id="addCLassesTJ" parameterType="classes">
         insert into classes <trim prefix="(" suffix=")" suffixOverrides=",">
