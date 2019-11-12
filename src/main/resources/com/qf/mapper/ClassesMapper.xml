@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.ClassesMapper">
+    <resultMap id="usermap" type="user">
+        <id property="uid" column="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <resultMap id="coursemap" type="course">
+        <id property="courseId" column="course_id"></id>
+        <result property="courseName" column="course_name"></result>
+    </resultMap>
+    <resultMap id="employeemap" type="employee">
+        <id property="eid" column="eid"></id>
+        <result property="ename" column="ename"></result>
+        <result property="esex" column="esex"></result>
+        <result property="eage" column="eage"></result>
+        <result property="ephone" column="ephone"></result>
+        <association property="user" column="uid" resultMap="usermap" javaType="user"></association>
+    </resultMap>
+    <resultMap id="Classmap" type="classer">
+        <id property="cid" column="cid"></id>
+        <result property="cname" column="cname"></result>
+        <result property="stage" column="stage"></result>
+        <association property="course" column="course_id" javaType="course" resultMap="coursemap"></association>
+        <association property="teacher" column="teacher_eid" javaType="employee" resultMap="employeemap"></association>
+        <association property="headmaster" column="headmaster_eid" javaType="employee" resultMap="employeemap"></association>
+    </resultMap>
+    <select id="getClassesCK" parameterType="classes" resultMap="Classmap">
+        select * from classes,course,employee
+        <where>
+            <if test="cid!=0">
+                cid=#{cid}
+            </if>
+            <if test="canme!=null">
+               and cname=#{canme}
+            </if>
+            and classes.course_id=course.course_id and classes.teacher_eid=employee.eid and classes.headmaster_eid=employee.eid
+        </where>
+    </select>
+    <insert id="addCLassesTJ" parameterType="classes">
+        insert into classes <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="canem!=null">
+            cname=#{cname}
+        </if>
+        <if test="course.courseId!=0">
+            course_id=#{course.courseId}
+        </if>
+        <if test="stage!=null">
+            stage=#{stage}
+        </if>
+        <if test="teacher.eid!=0">
+            teacher_eid=#{teacher.eid}
+        </if>
+        <if test="headmaster.eid!=0">
+            headmaster_eid=#{headmaster.eid}
+        </if>
+    </trim>
+    </insert>
+    <update id="updateClassesXG" parameterType="classer">
+        update classes
+        <set>
+            <if test="cname!=null">
+                cname=#{cname}
+            </if>
+        </set>
+        <set>
+            <if test="course!=null">
+                course_id=#{course.courseId}
+            </if>
+        </set>
+        <set>
+            <if test="stage!=null">
+                stage=#{stage}
+            </if>
+        </set>
+        <set>
+            <if test="teacher.eid!=0">
+                teacher_eid=#{teacher.eid}
+            </if>
+        </set>
+        <set>
+            <if test="headmaster.eid!=0">
+                headmaster_eid=#{headmaster.eid}
+            </if>
+        </set>
+        where cid=#{cid}
+    </update>
+    <delete id="deleteClassesSC" parameterType="com.qf.pojo.Classes">
+        delete from classes where cid=#{cid}
+    </delete>
+
+</mapper>

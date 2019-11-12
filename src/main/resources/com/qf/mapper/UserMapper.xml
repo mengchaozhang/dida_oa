@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.UserMapper">
+    <select id="getUserCK" parameterType="user" resultType="user">
+        select * from user 
+        <where>
+            <if test="uid!=0">
+                uid=#{uid}
+            </if>
+            <if test="username!=null">
+                username=#{username}
+            </if>
+            <if test="password!=null">
+                and password=#{password}
+            </if>
+            <if test="rolename!=null">
+                and rolename=#{rolename}
+            </if>
+        </where>
+    </select>
+    <insert id="addUserTJ" parameterType="user">
+        insert into user (username,password,rolename) values (#{username},#{password},#{rolename})
+    </insert>
+    <update id="updateUserXG" parameterType="user">
+        update user 
+        <set>
+            <if test="username!=null">
+                username=#{username}
+            </if>
+            <if test="password!=null">
+                password=#{password}
+            </if>
+            <if test="rolename!=null">
+                rolename=#{rolename}
+            </if>
+        </set>
+        where uid=#{uid}
+    </update>
+    <delete id="deleteUserSC" parameterType="user">
+        delete user where uid=#{uid}
+    </delete>
+    <select id="getUserMHCK" parameterType="java.lang.String" resultType="user">
+        select * from user where username like '%${value}%'
+    </select>
+
+</mapper>
