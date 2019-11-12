@@ -33,8 +33,6 @@
     <select id="getStudentListByCid" parameterType="int" resultType="com.qf.pojo.Student">
         select * from student where cid=#{cid}
     </select>
-</mapper>
-<mapper namespace="com.qf.mapper.RoleMapper">
     <resultMap id="usermap" type="user">
         <id property="uid" column="uid"></id>
         <result property="username" column="username"></result>
@@ -49,7 +47,7 @@
         <result property="ephone" column="ephone"></result>
         <association property="user" column="uid" javaType="user" resultMap="usermap"></association>
     </resultMap>
-    <select id="getEmployeeCK" parameterType="employee" resultType="employmap">
+    <select id="getEmployeeCK" parameterType="employee" resultType="employee">
         select * from employee,user
         <where>
             <if test="eid!=0">

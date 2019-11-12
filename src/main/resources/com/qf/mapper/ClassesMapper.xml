@@ -7,7 +7,6 @@
     <select id="getClassesByCname" parameterType="java.lang.String" resultMap="com.qf.mapper.WeekReportMapper.classesMap">
         select * from classes where cname=#{cname}
     </select>
-</mapper>
     <resultMap id="usermap" type="user">
         <id property="uid" column="uid"></id>
         <result property="username" column="username"></result>
@@ -26,7 +25,7 @@
         <result property="ephone" column="ephone"></result>
         <association property="user" column="uid" resultMap="usermap" javaType="user"></association>
     </resultMap>
-    <resultMap id="Classmap" type="classer">
+    <resultMap id="Classmap" type="classes">
         <id property="cid" column="cid"></id>
         <result property="cname" column="cname"></result>
         <result property="stage" column="stage"></result>
@@ -68,7 +67,7 @@
         </if>
     </trim>
     </insert>
-    <update id="updateClassesXG" parameterType="classer">
+    <update id="updateClassesXG" parameterType="classes">
         update classes
         <set>
             <if test="cname!=null">

@@ -1,11 +1,7 @@
 package com.qf.mapper;
 
 import com.qf.pojo.Classes;
-
-public interface ClassesMapper {
-    public Classes getClassesByCname(String cname);
 import java.util.List;
-
 public interface ClassesMapper {
     public Classes getClassesByCname(String cname);
     public List<Classes> getClassesCK(Classes classes);

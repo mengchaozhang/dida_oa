@@ -15,7 +15,7 @@
     </select>
 
 
-</mapper>
+
     <select id="getRoleCK" parameterType="role" resultType="role">
         select * from role
         <where>
@@ -27,6 +27,8 @@
             </if>
         </where>
     </select>
+
+
 
 </mapper>
         <!--yubo-->
