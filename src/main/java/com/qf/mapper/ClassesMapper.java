@@ -10,5 +10,5 @@ public interface ClassesMapper {
     public List<Classes> getClassesCK(Classes classes);
     public void addCLassesTJ(Classes classes);
     public void updateClassesXG(Classes classes);
-    public void deleteClassesSC(Classes classes);
+    public void deleteClassesSC(Classes classes);;
 }

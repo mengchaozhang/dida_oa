@@ -86,3 +86,4 @@
         delete employee where uid=#{user.uid}
     </delete>
 </mapper>
+        <!--yubo-->
