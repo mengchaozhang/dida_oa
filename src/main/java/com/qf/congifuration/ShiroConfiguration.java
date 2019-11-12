@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 @Configuration
 public class ShiroConfiguration {
+//    dfsdfsffs
     @Bean(name = "credentialsMatcher")
     public HashedCredentialsMatcher getCredentialMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
