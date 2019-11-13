@@ -14,40 +14,32 @@
         <id property="courseId" column="course_id"></id>
         <result property="courseName" column="course_name"></result>
     </resultMap>
+
     <resultMap id="employeemap" type="employee">
-        <id property="eid" column="eid"></id>
-        <result property="ename" column="ename"></result>
-        <result property="esex" column="esex"></result>
-        <result property="eage" column="eage"></result>
-        <result property="ephone" column="ephone"></result>
-        <association property="user" column="uid" resultMap="usermap" javaType="user"></association>
+        <result property="ename" column="teacher"></result>
+    </resultMap>
+    <resultMap id="employeemap1" type="employee">
+        <result property="ename" column="headmaster"></result>
     </resultMap>
     <resultMap id="Classmap" type="classes">
         <id property="cid" column="cid"></id>
         <result property="cname" column="cname"></result>
         <result property="stage" column="stage"></result>
-        <association property="course" column="course_id" javaType="course" resultMap="coursemap"></association>
-        <association property="teacher" column="teacher_eid" javaType="employee" resultMap="employeemap"></association>
-        <association property="headmaster" column="headmaster_eid" javaType="employee" resultMap="employeemap"></association>
+        <collection property="course" column="course_id" javaType="course" resultMap="coursemap"></collection>
+        <collection property="teacher" resultMap="employeemap"></collection>
+        <collection property="headmaster" resultMap="employeemap1"></collection>
     </resultMap>
     <select id="getClassesCK" parameterType="classes" resultMap="Classmap">
-        select * from classes,course,employee
-        <where>
-            <if test="cid!=0">
-                cid=#{cid}
-            </if>
-            <if test="canme!=null">
-               and cname=#{canme}
-            </if>
-            and classes.course_id=course.course_id and classes.teacher_eid=employee.eid and classes.headmaster_eid=employee.eid
-        </where>
+        SELECT *,(SELECT ename FROM employee WHERE eid=teacher_eid)AS teacher,(select ename FROM employee WHERE eid=headmaster_eid)AS headmaster
+FROM classes INNER JOIN course ON classes.course_id=course.course_id
+
     </select>
     <select id="getClassesByCname" parameterType="java.lang.String" resultMap="com.qf.mapper.WeekReportMapper.classesMap">
         select * from classes where cname=#{cname}
     </select>
     <insert id="addCLassesTJ" parameterType="classes">
         insert into classes <trim prefix="(" suffix=")" suffixOverrides=",">
-        <if test="canem!=null">
+        <if test="cnaem!=null">
             cname=#{cname}
         </if>
         <if test="course.courseId!=0">

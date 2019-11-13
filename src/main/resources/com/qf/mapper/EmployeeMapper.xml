@@ -47,7 +47,7 @@
         <result property="ephone" column="ephone"></result>
         <association property="user" column="uid" javaType="user" resultMap="usermap"></association>
     </resultMap>
-    <select id="getEmployeeCK" parameterType="employee" resultType="employee">
+    <select id="getEmployeeCK" parameterType="employee" resultMap="employmap">
         select * from employee,user
         <where>
             <if test="eid!=0">
@@ -58,6 +58,9 @@
             </if>
             and employee.uid=user.uid
         </where>
+    </select>
+    <select id="getEmployeeMHCK" parameterType="java.lang.String" resultMap="employmap">
+        select * from employee where ename like '%${value}%'
     </select>
     <insert id="addEmployeeTJ" parameterType="employee">
         insert into employee (ename,esex,eage,ephone,uid) values (#{ename},#{esex},#{eage},#{ephone},#{user.uid})

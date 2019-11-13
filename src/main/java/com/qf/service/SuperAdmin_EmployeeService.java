@@ -9,4 +9,5 @@ public interface SuperAdmin_EmployeeService {
     public void YGTJ(Employee employee);
     public void YGXG(Employee employee);
     public void YGSC(Employee employee);
+    public List<Employee> YGMHCK(String string);
 }

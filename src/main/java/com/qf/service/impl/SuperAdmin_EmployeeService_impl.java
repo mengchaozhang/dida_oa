@@ -1,8 +1,9 @@
-package com.qf.service;
+package com.qf.service.impl;
 
 import com.qf.mapper.EmployeeMapper;
 import com.qf.pojo.Classes;
 import com.qf.pojo.Employee;
+import com.qf.service.SuperAdmin_EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,11 @@ public class SuperAdmin_EmployeeService_impl implements SuperAdmin_EmployeeServi
     @Override
     public void YGSC(Employee employee) {
         employeeMapper.deleteEmployeeSC(employee);
+    }
+
+    @Override
+    public List<Employee> YGMHCK(String string) {
+        List<Employee>list = employeeMapper.getEmployeeMHCK(string);
+        return list;
     }
 }

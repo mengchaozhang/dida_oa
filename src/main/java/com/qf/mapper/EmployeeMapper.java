@@ -26,4 +26,5 @@ public interface EmployeeMapper {
     public void addEmployeeTJ(Employee employee);
     public void updateEmployeeXG(Employee employee);
     public void deleteEmployeeSC(Employee employee);;
+    public List<Employee> getEmployeeMHCK(String string);;
 }

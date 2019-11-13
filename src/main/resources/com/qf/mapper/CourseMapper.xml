@@ -3,11 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.CourseMapper">
-    <select id="getCourseCK" parameterType="course" resultType="course">
-        select * from course 
+    <resultMap id="coursemap" type="course">
+        <id property="courseId" column="course_id"></id>
+        <result property="courseName" column="course_name"></result>
+    </resultMap>
+    <select id="getCourseCK" parameterType="com.qf.pojo.Course" resultMap="coursemap">
+        select * from course
         <where>
             <if test="courseId!=0">
-                course_id=#{dourseId}
+                course_id=#{courseId}
             </if>
             <if test="courseName!=null">
                and course_name=#{courseName}

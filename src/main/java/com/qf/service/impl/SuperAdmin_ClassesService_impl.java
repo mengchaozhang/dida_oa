@@ -1,4 +1,4 @@
-package com.qf.service;
+package com.qf.service.impl;
 
 import com.qf.mapper.ClassesMapper;
 import com.qf.pojo.Classes;
