@@ -3,13 +3,9 @@ package com.qf.controller;
 import com.qf.pojo.*;
 import com.qf.service.*;
 import com.qf.util.HanyupinyinUtils;
-import com.sun.crypto.provider.HmacMD5;
-import org.apache.ibatis.annotations.Param;
-import org.omg.Dynamic.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

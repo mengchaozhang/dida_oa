@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Home</title>
+    <title>申请假条</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -75,42 +75,35 @@
           <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages12" aria-expanded="false" aria-controls="pages12" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>班级管理</span></a>
             <div id="pages12" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">查看个人资料</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">修改密码</a></li>
+                <li class="sidebar-list-item"><a href="BJGL" class="sidebar-link text-muted pl-lg-5">查看班级资料</a></li>
               </ul>
             </div>
           </li>
           <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages13" aria-expanded="false" aria-controls="pages13" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>课程管理</span></a>
             <div id="pages13" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">查看周报</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page two</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page three</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page four</a></li>
+                <li class="sidebar-list-item"><a href="KCGL" class="sidebar-link text-muted pl-lg-5">查看课程</a></li>
               </ul>
             </div>
           </li>
           <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages14" aria-expanded="false" aria-controls="pages14" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>角色管理</span></a>
             <div id="pages14" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="jumpStudentInfo" class="sidebar-link text-muted pl-lg-5">查看学生信息</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">批量导出</a></li>
+                <li class="sidebar-list-item"><a href="jumpStudentInfo" class="sidebar-link text-muted pl-lg-5">查看角色信息</a></li>
               </ul>
             </div>
           </li>
           <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages15" aria-expanded="false" aria-controls="pages15" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>用户管理</span></a>
             <div id="pages15" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">java1901</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">成绩分析</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">管理用户</a></li>
               </ul>
             </div>
           </li>
           <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages16" aria-expanded="false" aria-controls="pages16" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>员工管理</span></a>
             <div id="pages16" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">员工信息管理</a></li>
               </ul>
             </div>
           </li>
@@ -136,9 +129,9 @@
           <li shiro:hasRole="student" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages19" aria-expanded="false" aria-controls="pages19" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a>
             <div id="pages19" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+                <li class="sidebar-list-item"><a href="stuholiday" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
+                <!--                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>-->
+                <li class="sidebar-list-item"><a href="holidayList" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
               </ul>
             </div>
           </li>
@@ -179,17 +172,17 @@
           <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages4" aria-expanded="false" aria-controls="pages4" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假管理</span></a>
             <div id="pages4" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+                <li class="sidebar-list-item"><a href="studentholiday" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="teahea" class="sidebar-link text-muted pl-lg-5">学生请假记录</a></li>
               </ul>
             </div>
           </li>
           <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages5" aria-expanded="false" aria-controls="pages5" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a>
             <div id="pages5" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+                <li class="sidebar-list-item"><a href="empholiday" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
+                <!--                <li class="sidebar-list-item"><a href="studentholiday" class="sidebar-link text-muted pl-lg-5">待审批</a></li>-->
+                <li class="sidebar-list-item"><a href="empholidaylist" class="sidebar-link text-muted pl-lg-5">个人请假记录</a></li>
               </ul>
             </div>
           </li>
@@ -231,17 +224,17 @@
           <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages10" aria-expanded="false" aria-controls="pages10" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假管理</span></a>
             <div id="pages10" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+                <li class="sidebar-list-item"><a href="studentholiday" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="teahea" class="sidebar-link text-muted pl-lg-5">学生请假记录</a></li>
               </ul>
             </div>
           </li>
           <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages11" aria-expanded="false" aria-controls="pages11" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a>
             <div id="pages11" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+                <li class="sidebar-list-item"><a href="empholiday" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
+                <!--                <li class="sidebar-list-item"><a href="studentholiday" class="sidebar-link text-muted pl-lg-5">待审批</a></li>-->
+                <li class="sidebar-list-item"><a href="empholidaylist" class="sidebar-link text-muted pl-lg-5">个人请假记录</a></li>
               </ul>
             </div>
           </li>
@@ -268,8 +261,8 @@
           <li shiro:hasRole="boss" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages22" aria-expanded="false" aria-controls="pages22" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假管理</span></a>
             <div id="pages22" class="collapse">
               <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
-                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+                <li class="sidebar-list-item"><a href="transfer" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="stuemp" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
               </ul>
             </div>
           </li>

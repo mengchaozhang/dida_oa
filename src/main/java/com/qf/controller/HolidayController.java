@@ -25,10 +25,6 @@ public class HolidayController {
     public void setHolidayService(HolidayService holidayService) {
         this.holidayService = holidayService;
     }
-    @RequestMapping("indexx")
-    public String index(){
-        return "index";
-    }
     /**
      * 学生请假流程
      * @return
@@ -42,7 +38,7 @@ public class HolidayController {
         User user = (User) request.getSession().getAttribute("user");
         studentHoliday.setUser(user);
         holidayService.addStudentHoliday(studentHoliday);
-        return "redirect:indexx";
+        return "redirect:index";
     }
     //学生查询自己的请假记录
     @RequestMapping("holidayList")
@@ -85,7 +81,7 @@ public class HolidayController {
         User user = (User) request.getSession().getAttribute("user");
         employHoliday.setUser(user);
         holidayService.addEmployHoliday(employHoliday);
-        return "redirect:indexx";
+        return "redirect:index";
     }
     //员工查询自己的请假记录
     @RequestMapping("empholidaylist")
