@@ -2,6 +2,7 @@ package com.qf.pojo;
 
 public class StudentHoliday {
     private int hid;
+    private int uid;
     private User user;
     private String startDate;
     private String endDate;
@@ -9,6 +10,41 @@ public class StudentHoliday {
     private int teacherState;
     private int headmasterState;
     private int bossState;
+    private int flag;
+    private EmployHoliday employHoliday;
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public EmployHoliday getEmployHoliday() {
+        return employHoliday;
+    }
+
+    public void setEmployHoliday(EmployHoliday employHoliday) {
+        this.employHoliday = employHoliday;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public int getHid() {
         return hid;
@@ -98,10 +134,37 @@ public class StudentHoliday {
     public StudentHoliday() {
     }
 
+    public StudentHoliday(int hid, int uid, User user, String startDate, String endDate, String reason, int teacherState, int headmasterState, int bossState) {
+        this.hid = hid;
+        this.uid = uid;
+        this.user = user;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reason = reason;
+        this.teacherState = teacherState;
+        this.headmasterState = headmasterState;
+        this.bossState = bossState;
+    }
+
+    public StudentHoliday(int hid, int uid, User user, String startDate, String endDate, String reason, int teacherState, int headmasterState, int bossState, int flag, EmployHoliday employHoliday) {
+        this.hid = hid;
+        this.uid = uid;
+        this.user = user;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reason = reason;
+        this.teacherState = teacherState;
+        this.headmasterState = headmasterState;
+        this.bossState = bossState;
+        this.flag = flag;
+        this.employHoliday = employHoliday;
+    }
+
     @Override
     public String toString() {
         return "StudentHoliday{" +
                 "hid=" + hid +
+                ", uid=" + uid +
                 ", user=" + user +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
@@ -109,6 +172,8 @@ public class StudentHoliday {
                 ", teacherState=" + teacherState +
                 ", headmasterState=" + headmasterState +
                 ", bossState=" + bossState +
+                ", flag=" + flag +
+                ", employHoliday=" + employHoliday +
                 '}';
     }
 }

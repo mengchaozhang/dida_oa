@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.GradeMapper">
+
+    <resultMap id="gradeMap" type="com.qf.pojo.Grade">
+        <id property="gid" column="gid"/>
+        <result property="stage1_score" column="stage1_score"/>
+        <result property="stage2_score" column="stage2_score"/>
+        <result property="stage3_score" column="stage3_score"/>
+        <result property="stage4_score" column="stage4_score"/>
+        <association property="classes" resultMap="com.qf.mapper.WeekReportMapper.classesMap"/>
+        <association property="student" resultMap="com.qf.mapper.WeekReportMapper.studentMap"/>
+    </resultMap>
+    <insert id="insertScoreByStage1">
+        insert into grade (cid,sid,stage1_score) values (#{param3},#{param2},#{param1})
+    </insert>
+    <insert id="insertScoreByStage2">
+        insert into grade (stage2_score) values (#{param1}) where cid=#{param3} and sid=#{param2}
+    </insert>
+    <insert id="insertScoreByStage3">
+        insert into grade (stage3_score) values (#{param1}) where cid=#{param3} and sid=#{param2}
+    </insert>
+    <insert id="insertScoreByStage4">
+        insert into grade (stage4_score) values (#{param1}) where cid=#{param3} and sid=#{param2}
+    </insert>
+    <insert id="insertScoreByStage11">
+        insert into grade (stage1_score) values (#{param1}) where cid=#{param3} and sid=#{param2}
+    </insert>
+    <update id="updateScoreBySidAndStage1">
+        update grade set stage1_score=#{param1} where sid=#{param2}
+    </update>
+    <update id="updateScoreBySidAndStage2">
+        update grade set stage2_score=#{param1} where sid=#{param2}
+    </update>
+    <update id="updateScoreBySidAndStage3">
+        update grade set stage3_score=#{param1} where sid=#{param2}
+    </update>
+    <update id="updateScoreBySidAndStage4">
+        update grade set stage4_score=#{param1} where sid=#{param2}
+    </update>
+
+    <select id="getGradeListByCid" resultMap="gradeMap">
+        select * from grade inner join student on student.sid=grade.sid inner join classes on classes.cid=grade.cid and grade.cid=#{cid}
+    </select>
+    <select id="getGradeBySid" resultType="com.qf.pojo.Grade">
+        select * from grade where sid=#{sid}
+    </select>
+    <select id="getGradeAvgByCid" resultType="com.qf.pojo.Grade">
+        select AVG( stage1_score) AS stage1_score,AVG(stage2_score) AS stage2_score,AVG(stage3_score) AS stage3_score,AVG(stage4_score) AS stage4_score from grade WHERE cid=#{cid}
+    </select>
+    <select id="getGradeBySidAndCid" resultType="com.qf.pojo.Grade">
+        select * from grade where sid=#{param1} and cid=#{param2}
+    </select>
+</mapper>

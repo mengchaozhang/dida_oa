@@ -8,6 +8,15 @@ public class Student {
     private String sphone;
     private Classes classes;
     private User user;
+    private StudentHoliday studentHoliday;
+
+    public StudentHoliday getStudentHoliday() {
+        return studentHoliday;
+    }
+
+    public void setStudentHoliday(StudentHoliday studentHoliday) {
+        this.studentHoliday = studentHoliday;
+    }
 
     public int getSid() {
         return sid;
@@ -97,6 +106,7 @@ public class Student {
                 ", sphone='" + sphone + '\'' +
                 ", classes=" + classes +
                 ", user=" + user +
+                ", studentHoliday=" + studentHoliday +
                 '}';
     }
 }

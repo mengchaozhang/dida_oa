@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
   <head>
-    <meta charset="utf-8"xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Home</title>
     <meta name="description" content="">
@@ -30,14 +30,6 @@
     <header class="header">
       <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
-          <li class="nav-item">
-            <form id="searchForm" class="ml-auto d-none d-lg-block">
-              <div class="form-group position-relative mb-0">
-                <button type="submit" style="top: -3px; left: 0;" class="position-absolute bg-white border-0 p-0"><i class="o-search-magnify-1 text-gray text-lg"></i></button>
-                <input type="search" placeholder="搜索 ..." class="form-control form-control-sm border-0 no-shadow pl-4">
-              </div>
-            </form>
-          </li>
           <li class="nav-item dropdown mr-3">
             <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
                 <div class="d-flex align-items-center">
@@ -68,8 +60,8 @@
             </div>
           </li>
           <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
-            <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">Mark Stephen</strong></a>
-              <div class="dropdown-divider"></div><a href="login.html" class="dropdown-item">Logout</a>
+            <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family" th:text="${#session.getAttribute('username')}"></strong></a>
+              <div class="dropdown-divider"></div><a href="/logout.action" class="dropdown-item">Logout</a>
             </div>
           </li>
         </ul>
@@ -79,36 +71,208 @@
       <div id="sidebar" class="sidebar py-3">
         <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN</div>
         <ul class="sidebar-menu list-unstyled">
-          <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>班级管理</span></a></li>
-          <li class="sidebar-list-item"><a href="tables.html" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>课程管理</span></a></li>
-          <li class="sidebar-list-item"><a href="charts.html" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>角色管理</span></a></li>
-          <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>用户管理</span></a></li>
-          <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-database-1 mr-3 text-gray"></i><span>员工管理</span></a></li>
+          <!--超级管理员-->
+          <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages12" aria-expanded="false" aria-controls="pages12" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>班级管理</span></a>
+            <div id="pages12" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">查看个人资料</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">修改密码</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages13" aria-expanded="false" aria-controls="pages13" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>课程管理</span></a>
+            <div id="pages13" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">查看周报</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page two</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page three</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page four</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages14" aria-expanded="false" aria-controls="pages14" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>角色管理</span></a>
+            <div id="pages14" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="jumpStudentInfo" class="sidebar-link text-muted pl-lg-5">查看学生信息</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">批量导出</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages15" aria-expanded="false" aria-controls="pages15" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>用户管理</span></a>
+            <div id="pages15" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">java1901</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">成绩分析</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages16" aria-expanded="false" aria-controls="pages16" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>员工管理</span></a>
+            <div id="pages16" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+              </ul>
+            </div>
+          </li>
 
 
-          <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a></li>
-          <li class="sidebar-list-item"><a href="tables.html" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>周报管理</span></a></li>
-          <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>请假申请</span></a></li>
+          <!--学生-->
+          <li shiro:hasRole="student" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages17" aria-expanded="false" aria-controls="pages17" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a>
+            <div id="pages17" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="jumpSelfInfo" class="sidebar-link text-muted pl-lg-5">查看个人资料</a></li>
+                <li class="sidebar-list-item"><a href="jumpUpdateInfo" class="sidebar-link text-muted pl-lg-5">修改个人资料</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="student" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages18" aria-expanded="false" aria-controls="pages18" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>周报管理</span></a>
+            <div id="pages18" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="addWeekReport" class="sidebar-link text-muted pl-lg-5">添加周报</a></li>
+                <li class="sidebar-list-item"><a href="lookWeekReport" class="sidebar-link text-muted pl-lg-5">查看周报</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="student" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages19" aria-expanded="false" aria-controls="pages19" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a>
+            <div id="pages19" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+              </ul>
+            </div>
+          </li>
 
 
-          <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a></li>
-          <li class="sidebar-list-item"><a href="tables.html" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>周报查看</span></a></li>
-          <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>信息查看</span></a></li>
-          <li class="sidebar-list-item"><a href="charts.html" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>成绩管理</span></a></li>
-          <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假审批</span></a></li>
-          <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a></li>
 
-          <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a></li>
-          <li class="sidebar-list-item"><a href="tables.html" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>周报查看</span></a></li>
-          <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>学生管理</span></a></li>
-          <li class="sidebar-list-item"><a href="charts.html" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>成绩查看</span></a></li>
-          <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假审批</span></a></li>
-          <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a></li>
+          <!--讲师-->
+          <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a>
+            <div id="pages" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="jumpSelfInfo" class="sidebar-link text-muted pl-lg-5">查看个人资料</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages1" aria-expanded="false" aria-controls="pages1" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>周报管理</span></a>
+            <div id="pages1" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <a th:each="classes:${#session.getAttribute('classesList')}" th:text="${classes.cname}" th:href="@{lookWeekReport(cid=${classes.cid})}" class="sidebar-link text-muted pl-lg-5"></a>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages2" aria-expanded="false" aria-controls="pages2" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>学生管理</span></a>
+            <div id="pages2" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item">
+                  <a th:each="classes:${#session.getAttribute('classesList')}" th:text="${classes.cname}" th:href="@{jumpStudentInfo(cid=${classes.cid})}" class="sidebar-link text-muted pl-lg-5"></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages3" aria-expanded="false" aria-controls="pages3" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>成绩管理</span></a>
+            <div id="pages3" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <a th:each="classes:${#session.getAttribute('classesList')}" th:text="${classes.cname}" th:href="@{infoScore(cid=${classes.cid})}" class="sidebar-link text-muted pl-lg-5"></a>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages4" aria-expanded="false" aria-controls="pages4" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假管理</span></a>
+            <div id="pages4" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="teacher" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages5" aria-expanded="false" aria-controls="pages5" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a>
+            <div id="pages5" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+              </ul>
+            </div>
+          </li>
 
 
-          <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted active"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a></li>
-          <li class="sidebar-list-item"><a href="charts.html" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>成绩查看</span></a></li>
-          <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>请假审批</span></a></li>
+
+          <!--班主任-->
+          <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages6" aria-expanded="false" aria-controls="pages6" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a>
+            <div id="pages6" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="jumpSelfInfo" class="sidebar-link text-muted pl-lg-5">查看个人资料</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages7" aria-expanded="false" aria-controls="pages7" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>周报管理</span></a>
+            <div id="pages7" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item">
+                  <a th:each="classes:${#session.getAttribute('classesList')}" th:text="${classes.cname}" th:href="@{lookWeekReport(cid=${classes.cid})}" class="sidebar-link text-muted pl-lg-5"></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages8" aria-expanded="false" aria-controls="pages8" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>学生管理</span></a>
+            <div id="pages8" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <a th:each="classes:${#session.getAttribute('classesList')}" th:text="${classes.cname}" th:href="@{jumpStudentInfo(cid=${classes.cid})}" class="sidebar-link text-muted pl-lg-5"></a>
+                <li class="sidebar-list-item"><a href="jumpStudentImport" class="sidebar-link text-muted pl-lg-5">批量导入</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages9" aria-expanded="false" aria-controls="pages9" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>成绩管理</span></a>
+            <div id="pages9" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <a th:each="classes:${#session.getAttribute('classesList')}" th:text="${classes.cname}" th:href="@{infoScore(cid=${classes.cid})}" class="sidebar-link text-muted pl-lg-5"></a>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages10" aria-expanded="false" aria-controls="pages10" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假管理</span></a>
+            <div id="pages10" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="headmaster" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages11" aria-expanded="false" aria-controls="pages11" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span>个人请假</span></a>
+            <div id="pages11" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假申请</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+              </ul>
+            </div>
+          </li>
+
+
+
+          <!--校长-->
+          <li shiro:hasRole="boss" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages20" aria-expanded="false" aria-controls="pages20" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>个人资料</span></a>
+            <div id="pages20" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="jumpSelfInfo" class="sidebar-link text-muted pl-lg-5">查看个人资料</a></li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="boss" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages21" aria-expanded="false" aria-controls="pages21" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>成绩管理</span></a>
+            <div id="pages21" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item">
+                  <a th:each="classes:${#session.getAttribute('classesList')}" th:text="${classes.cname}" th:href="@{infoScore(cid=${classes.cid})}" class="sidebar-link text-muted pl-lg-5"></a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li shiro:hasRole="boss" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages22" aria-expanded="false" aria-controls="pages22" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>请假管理</span></a>
+            <div id="pages22" class="collapse">
+              <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">待审批</a></li>
+                <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">请假记录</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
       <div class="page-holder w-100 d-flex flex-wrap">
@@ -125,48 +289,37 @@
                       <thead>
                       <tr>
                         <th>序号</th>
+                        <th>申请人</th>
                         <th>开始时间</th>
                         <th>结束时间</th>
-                        <th>原因</th>
-                        <th>操作</th>
+                        <th>请假原因</th>
+                          <th shiro:hasAnyRoles="teacher,boss,headmaster">操作</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
+                        <tr th:each="s,var:${list}">
+                          <td th:text="${var.count}"></td>
+                          <td th:text="${s.student.sname}"></td>
+                          <td th:text="${s.startDate}"></td>
+                          <td th:text="${s.endDate}"></td>
+                          <td th:text="${s.reason}"></td>
+                            <td shiro:hasAnyRoles="teacher,headmaster">
+                              <a th:href="@{allupdate(hid=${s.hid})}" th:text="准假"></a>
+                            </td>
+                            <td shiro:hasRole="boss">
+                              <a th:if="${s.flag==0}" th:href="@{allupdate(hid=${s.hid})}" th:text="准假"></a>
+                            </td>
+                        </tr>
+                        <tr th:each="e,var:${empList}">
+                          <td th:text="${var.count}"></td>
+                          <td th:text="${e.employee.ename}"></td>
+                          <td th:text="${e.startDate}"></td>
+                          <td th:text="${e.endDate}"></td>
+                          <td th:text="${e.reason}"></td>
+                          <td shiro:hasRole="boss">
+                            <a th:if="${e.flag==1}" th:href="@{bossupdate(hid=${e.hid})}" th:text="准假"></a></a>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>

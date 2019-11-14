@@ -38,6 +38,9 @@
         </set>
         where uid=#{uid}
     </update>
+    <update id="updateUser" parameterType="com.qf.pojo.User">
+        update user set password=#{password} where uid=#{uid}
+    </update>
     <delete id="deleteUserSC" parameterType="user">
         delete from user where uid=#{uid}
     </delete>

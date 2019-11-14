@@ -2,11 +2,38 @@ package com.qf.pojo;
 
 public class EmployHoliday {
     private int hid;
+    private int uid;
     private User user;
     private String startDate;
     private String EndDate;
     private String reason;
     private int state;
+    private int flag;
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public int getHid() {
         return hid;
@@ -76,15 +103,38 @@ public class EmployHoliday {
     public EmployHoliday() {
     }
 
+    public EmployHoliday(int hid, int uid, User user, String startDate, String endDate, String reason, int state) {
+        this.hid = hid;
+        this.uid = uid;
+        this.user = user;
+        this.startDate = startDate;
+        EndDate = endDate;
+        this.reason = reason;
+        this.state = state;
+    }
+
+    public EmployHoliday(int hid, int uid, User user, String startDate, String endDate, String reason, int state, int flag) {
+        this.hid = hid;
+        this.uid = uid;
+        this.user = user;
+        this.startDate = startDate;
+        EndDate = endDate;
+        this.reason = reason;
+        this.state = state;
+        this.flag = flag;
+    }
+
     @Override
     public String toString() {
         return "EmployHoliday{" +
                 "hid=" + hid +
+                ", uid=" + uid +
                 ", user=" + user +
                 ", startDate='" + startDate + '\'' +
                 ", EndDate='" + EndDate + '\'' +
                 ", reason='" + reason + '\'' +
                 ", state=" + state +
+                ", flag=" + flag +
                 '}';
     }
 }

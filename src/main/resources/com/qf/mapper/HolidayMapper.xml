@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.HolidayMapper">
+<!-- 学生请假流程   -->
+    <insert id="addStudentHoliday" useGeneratedKeys="true" keyProperty="hid" parameterType="studentholiday">
+        insert into student_holiday(uid,start_date,end_date,reason,boss_state) values(#{user.uid},#{startDate},#{endDate},#{reason},#{bossState})
+    </insert>
+    <resultMap id="studentholiday" type="studentholiday">
+        <id property="hid" column="hid"></id>
+        <result property="startDate" column="start_date"></result>
+        <result property="endDate" column="end_date"></result>
+        <result property="reason" column="reason"></result>
+        <result property="teacherState" column="teacher_state"/>
+        <result property="headmasterState" column="headmaster_state"/>
+        <result property="bossState" column="boss_state"/>
+        <association property="student" column="uid" resultMap="student1Map"></association>
+    </resultMap>
+    <resultMap id="student1Map" type="student">
+        <id property="sid" column="sid"></id>
+        <result property="sname" column="sname"></result>
+        <association property="user" column="uid" resultMap="user6Map"></association>
+    </resultMap>
+    <resultMap id="user6Map" type="user">
+        <id property="uid" column="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <select id="getApproveStudentHoliday" resultMap="studentholiday">
+        select * from student_holiday,student,user where student.uid=user.uid and student_holiday.uid=user.uid
+        and student.uid=student_holiday.uid and hid in
+        <foreach collection="list" item="i" open="(" close=")" separator=",">
+            #{i}
+        </foreach>
+    </select>
+    <update id="updateTeacherState" parameterType="int">
+        update student_holiday set teacher_state=#{state} where hid=#{hid}
+    </update>
+    <update id="updateHeadMaster" parameterType="int">
+        update student_holiday set headmaster_state=#{state} where hid=#{hid}
+    </update>
+    <update id="updatebossState" parameterType="int">
+        update student_holiday set boss_state=#{state} where hid=#{hid}
+    </update>
+<!-- 员工请假流程  -->
+    <insert id="addEmployHoliday" useGeneratedKeys="true" keyProperty="hid" parameterType="com.qf.pojo.EmployHoliday">
+        insert into employ_holiday(uid,start_date,end_date,reason,state) values(#{user.uid},#{startDate},#{endDate},#{reason},#{state})
+    </insert>
+    <resultMap id="employholiday" type="com.qf.pojo.EmployHoliday">
+        <id property="hid" column="hid"></id>
+        <result property="startDate" column="start_date"></result>
+        <result property="endDate" column="end_date"></result>
+        <result property="reason" column="reason"></result>
+        <result property="state" column="state"></result>
+        <result property="flag" column="flag"></result>
+        <association property="employee" column="uid" resultMap="employee1Map"></association>
+    </resultMap>
+    <resultMap id="employee1Map" type="employee">
+        <id property="eid" column="eid"></id>
+        <result property="ename" column="ename"></result>
+        <association property="user" column="uid" resultMap="user7Map"></association>
+    </resultMap>
+    <resultMap id="user7Map" type="user">
+        <id property="uid" column="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <select id="getApproveEmployHoliday" resultMap="employholiday">
+        select * from employ_holiday,employee,user where employ_holiday.uid=user.uid
+        and employee.uid = user.uid and employ_holiday.uid=employee.uid and hid in
+        <foreach collection="list" item="i" open="(" close=")" separator=",">
+            #{i}
+        </foreach>
+    </select>
+    <update id="updateEmployHoliday" parameterType="int">
+        update employ_holiday set state=#{state} where hid=#{hid}
+    </update>
+<!-- 辅助查询，查询user表中所有用户名 -->
+    <select id="getUserNameList" resultType="user">
+        select * from user
+    </select>
+<!-- 查询学生请假信息
+ private int hid;
+    private int uid;
+    private User user;
+    private String startDate;
+    private String endDate;
+    private String reason;
+    private int teacherState;
+    private int headmasterState;
+    private int bossState;-->
+    <resultMap id="studentHolidayMap" type="com.qf.pojo.StudentHoliday">
+        <id property="hid" column="hid"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="reason" column="reason"/>
+        <result property="teacherState" column="teacher_state"/>
+        <result property="headmasterState" column="headmaster_state"/>
+        <result property="bossState" column="boss_state"/>
+        <association property="user" resultMap="userMapper"/>
+    </resultMap>
+    <resultMap id="userMapper" type="com.qf.pojo.User">
+        <id property="uid" column="uid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="rolename" column="rolename"/>
+    </resultMap>
+    <select id="getStudentHolidayList" resultMap="studentHolidayMap">
+        select * from student_holiday inner join user on student_holiday.uid=user.uid and student_holiday.uid=#{uid}
+    </select>
+<!-- 员工表的请假信息   -->
+    <resultMap id="employholidayMap" type="employholiday">
+        <id property="hid" column="hid"></id>
+        <result property="startDate" column="start_date"></result>
+        <result property="endDate" column="end_date"></result>
+        <result property="reason" column="reason"></result>
+        <result property="state" column="state"></result>
+        <association property="user" column="uid" resultMap="userlistMap"></association>
+    </resultMap>
+    <resultMap id="userlistMap" type="user">
+        <id property="uid" column="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <select id="getEmployHolidayList" resultMap="employholidayMap">
+        select * from employ_holiday inner join user on employ_holiday.uid=user.uid and employ_holiday.uid=#{uid}
+    </select>
+<!-- 校长查看所有请假记录  -->
+    <resultMap id="studentholiday1Map" type="com.qf.pojo.StudentHoliday">
+        <id property="hid" column="hid"></id>
+        <result property="startDate" column="start_date"></result>
+        <result property="endDate" column="end_date"></result>
+        <result property="reason" column="reason"></result>
+        <result property="teacherState" column="teacher_state"/>
+        <result property="headmasterState" column="headmaster_state"/>
+        <result property="bossState" column="boss_state"/>
+        <association property="user" column="uid" resultMap="user2Map"></association>
+    </resultMap>
+    <resultMap id="user2Map" type="user">
+        <id column="uid" property="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <select id="getStuList" resultMap="studentholiday1Map">
+        select * from student_holiday inner join user on teacher_state=1 and headmaster_state=1 and boss_state=1
+        and student_holiday.uid = user.uid
+    </select>
+    <resultMap id="employholiday1Map" type="com.qf.pojo.EmployHoliday">
+        <id property="hid" column="hid"></id>
+        <result property="startDate" column="start_date"></result>
+        <result property="endDate" column="end_date"></result>
+        <result property="reason" column="reason"></result>
+        <result property="state" column="state"></result>
+        <association property="user" column="uid" resultMap="user3Map"></association>
+    </resultMap>
+    <resultMap id="user3Map" type="user">
+        <id property="uid" column="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <select id="getEmpList" resultMap="employholiday1Map">
+        select * from employ_holiday inner join user  on state=1 and employ_holiday.uid=user.uid
+    </select>
+<!-- 三表联查学生姓名   -->
+    <resultMap id="studentholiday3Map" type="studentholiday">
+        <id property="hid" column="hid"></id>
+        <result property="startDate" column="start_date"></result>
+        <result property="endDate" column="end_date"></result>
+        <result property="reason" column="reason"></result>
+        <result property="teacherState" column="teacher_state"/>
+        <result property="headmasterState" column="headmaster_state"/>
+        <result property="bossState" column="boss_state"/>
+        <association property="student" column="uid" resultMap="studentMap"></association>
+    </resultMap>
+    <resultMap id="studentMap" type="student">
+        <id property="sid" column="sid"></id>
+        <result property="sname" column="sname"></result>
+        <association property="user" column="uid" resultMap="user4Map"></association>
+    </resultMap>
+    <resultMap id="user4Map" type="user">
+        <id property="uid" column="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <select id="getSname" resultMap="studentholiday3Map">
+        select * from student_holiday,student,user where student.uid=user.uid and student_holiday.uid=user.uid
+        and student.uid=student_holiday.uid
+    </select>
+<!-- 三表联查教师、班主任姓名   -->
+    <resultMap id="employholiday3Map" type="employholiday">
+        <id property="hid" column="hid"></id>
+        <result property="startDate" column="start_date"></result>
+        <result property="endDate" column="end_date"></result>
+        <result property="reason" column="reason"></result>
+        <result property="state" column="state"></result>
+        <association property="employee" column="uid" resultMap="employeeMap"></association>
+    </resultMap>
+    <resultMap id="employeeMap" type="employee">
+        <id property="eid" column="eid"></id>
+        <result property="ename" column="ename"></result>
+        <association property="user" column="uid" resultMap="user5Map"></association>
+    </resultMap>
+    <resultMap id="user5Map" type="user">
+        <id property="uid" column="uid"></id>
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="rolename" column="rolename"></result>
+    </resultMap>
+    <select id="getEname" resultMap="employholiday3Map">
+        select * from employ_holiday,employee,user where employ_holiday.uid=user.uid
+        and employee.uid = user.uid and employ_holiday.uid=employee.uid
+    </select>
+</mapper>

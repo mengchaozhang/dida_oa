@@ -24,12 +24,30 @@
         insert into user (username,rolename) values (#{username},#{rolename})
     </insert>
 
-    <select id="getEmployeeByUid" parameterType="int" resultType="com.qf.pojo.Employee">
+    <select id="getEmployeeByUid" parameterType="int" resultMap="com.qf.mapper.WeekReportMapper.employeeMap">
         select * from employee where uid=#{uid}
     </select>
-    <select id="getClassesByEid" parameterType="int" resultType="com.qf.pojo.Classes">
-        select * from classes where eid=#{eid}
+    <select id="getClassesByTeacherEid" parameterType="int" resultType="com.qf.pojo.Classes">
+        select * from classes where teacher_eid=#{eid}
     </select>
+
+    <select id="getClassesListByTeacherEid" parameterType="int" resultType="com.qf.pojo.Classes">
+        select * from classes where teacher_eid=${eid}
+    </select>
+
+    <select id="getClassesByHeadmasterEid" resultType="com.qf.pojo.Classes">
+        select * from classes where headmaster_eid=#{eid}
+    </select>
+
+    <select id="getClassesListByHeadmasterEid" parameterType="int" resultType="com.qf.pojo.Classes">
+        select * from classes where headmaster_eid=#{eid}
+    </select>
+
+    <select id="getClassesListByBoss" resultType="com.qf.pojo.Classes">
+        select * from classes
+    </select>
+
+
     <select id="getStudentListByCid" parameterType="int" resultType="com.qf.pojo.Student">
         select * from student where cid=#{cid}
     </select>
@@ -63,6 +81,7 @@
     <select id="getEmployeeMHCK" parameterType="java.lang.String" resultMap="employmap">
         select * from employee where ename like '%${value}%'
     </select>
+
     <insert id="addEmployeeTJ" parameterType="employee">
         insert into employee (ename,esex,eage,ephone,uid) values (#{ename},#{esex},#{eage},#{ephone},#{user.uid})
     </insert>

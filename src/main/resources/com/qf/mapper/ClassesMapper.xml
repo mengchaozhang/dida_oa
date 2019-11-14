@@ -37,6 +37,9 @@ FROM classes INNER JOIN course ON classes.course_id=course.course_id
     <select id="getClassesByCname" parameterType="java.lang.String" resultMap="com.qf.mapper.WeekReportMapper.classesMap">
         select * from classes where cname=#{cname}
     </select>
+    <select id="getClassesByCid" resultType="com.qf.pojo.Classes">
+        select * from classes where cid=#{cid}
+    </select>
     <insert id="addCLassesTJ" parameterType="classes">
         insert into classes <trim prefix="(" suffix=")" suffixOverrides=",">
         <if test="cnaem!=null">

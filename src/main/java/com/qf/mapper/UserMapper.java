@@ -9,5 +9,7 @@ public interface UserMapper {
     public void addUserTJ(User user);
     public void updateUserXG(User user);
     public void deleteUserSC(User user);
-    public List<User> getUserMHCK(String string);;
+    public List<User> getUserMHCK(String string);
+
+    public int updateUser(User user);
 }

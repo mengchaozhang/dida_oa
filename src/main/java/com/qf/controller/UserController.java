@@ -2,6 +2,7 @@ package com.qf.controller;
 
 import com.qf.pojo.User;
 import com.qf.service.GetRoleService;
+import com.qf.service.PageInfoManagerService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.mgt.SecurityManager;
@@ -22,6 +23,8 @@ public class UserController {
         private GetRoleService getRoleService;
         @Autowired
         private SecurityManager securityManager;
+        @Autowired
+        private PageInfoManagerService pageInfoManagerService;
 
     @RequestMapping("login")
     public String loginPage(){
@@ -41,15 +44,21 @@ public class UserController {
                 System.out.println(user1);
                 if ("teacher".equals(user1.getRolename()) || "headmaster".equals(user1.getRolename()) || "boss".equals(user1.getRolename()) || "admin".equals(user1.getRolename())) {
                     session.setAttribute("username", getRoleService.getEnameByUid(user1.getUid()));
+                    if ("boss".equals(user1.getRolename())) {
+                        session.setAttribute("classesList", pageInfoManagerService.getClassesList());
+                    } else {
+                        session.setAttribute("classesList",pageInfoManagerService.getClassesListByUid(user1));
+                    }
                 } else {
+                    System.out.println(getRoleService.getSnameByUid(user1.getUid()));
                     session.setAttribute("username", getRoleService.getSnameByUid(user1.getUid()));
                 }
-                return "index";
+                return "redirect:index";
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return "login";
+        return "redirect:login";
     }
 //
 //    @RequestMapping("edit")
