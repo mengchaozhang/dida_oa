@@ -1,13 +1,11 @@
 package com.qf.controller;
 
 import com.qf.pojo.EmployHoliday;
-import com.qf.pojo.Student;
 import com.qf.pojo.StudentHoliday;
 import com.qf.pojo.User;
 import com.qf.service.HolidayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +22,6 @@ public class HolidayController {
 
     public void setHolidayService(HolidayService holidayService) {
         this.holidayService = holidayService;
-    }
-    @RequestMapping("index")
-    public String index(){
-        return "index";
     }
     /**
      * 学生请假流程
