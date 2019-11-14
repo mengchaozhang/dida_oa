@@ -74,6 +74,9 @@
             <if test="eid!=0">
                 eid=#{eid}
             </if>
+            <if test="user.rolename!=null">
+                and user.rolename=#{user.rolename}
+            </if>
 
             and employee.uid=user.uid
         </where>
