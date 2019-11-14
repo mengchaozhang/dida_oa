@@ -30,8 +30,10 @@
         <collection property="headmaster" resultMap="employeemap1"></collection>
     </resultMap>
     <select id="getClassesCK" parameterType="classes" resultMap="Classmap">
-        SELECT *,(SELECT ename FROM employee WHERE eid=teacher_eid)AS teacher,(select ename FROM employee WHERE eid=headmaster_eid)AS headmaster
-FROM classes INNER JOIN course ON classes.course_id=course.course_id
+         SELECT *,
+(SELECT ename FROM employee WHERE employee.eid=teacher_eid)AS teacher,
+(select ename FROM employee WHERE employee.eid=headmaster_eid)AS headmaster
+FROM classes,course where classes.course_id=course.course_id
 
     </select>
     <select id="getClassesByCname" parameterType="java.lang.String" resultMap="com.qf.mapper.WeekReportMapper.classesMap">
@@ -41,47 +43,63 @@ FROM classes INNER JOIN course ON classes.course_id=course.course_id
         select * from classes where cid=#{cid}
     </select>
     <insert id="addCLassesTJ" parameterType="classes">
-        insert into classes <trim prefix="(" suffix=")" suffixOverrides=",">
-        <if test="cnaem!=null">
-            cname=#{cname}
+        insert into classes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="cname!=null">
+            cname,
         </if>
         <if test="course.courseId!=0">
-            course_id=#{course.courseId}
+            course_id,
         </if>
         <if test="stage!=null">
-            stage=#{stage}
+            stage,
         </if>
         <if test="teacher.eid!=0">
-            teacher_eid=#{teacher.eid}
+            teacher_eid,
         </if>
         <if test="headmaster.eid!=0">
-            headmaster_eid=#{headmaster.eid}
+            headmaster_eid
         </if>
     </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cname!=null">
+                #{cname},
+            </if>
+            <if test="course.courseId!=0">
+                #{course.courseId},
+            </if>
+            <if test="stage!=null">
+               #{stage},
+            </if>
+            <if test="teacher.eid!=0">
+                #{teacher.eid},
+            </if>
+            <if test="headmaster.eid!=0">
+               #{headmaster.eid}
+            </if>
+        </trim>
     </insert>
     <update id="updateClassesXG" parameterType="classes">
         update classes
         <set>
             <if test="cname!=null">
-                cname=#{cname}
+                cname=#{cname},
             </if>
-        </set>
-        <set>
+
+
             <if test="course!=null">
-                course_id=#{course.courseId}
+                course_id=#{course.courseId},
             </if>
-        </set>
-        <set>
+
+
             <if test="stage!=null">
-                stage=#{stage}
+                stage=#{stage},
             </if>
-        </set>
-        <set>
+
             <if test="teacher.eid!=0">
-                teacher_eid=#{teacher.eid}
+                teacher_eid=#{teacher.eid},
             </if>
-        </set>
-        <set>
+
             <if test="headmaster.eid!=0">
                 headmaster_eid=#{headmaster.eid}
             </if>

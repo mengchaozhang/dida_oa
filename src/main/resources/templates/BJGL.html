@@ -287,54 +287,105 @@
                 <tr><th></th><th>序号</th><th>班级名称</th><th>科目名称</th><th>阶段</th><th>授课老师</th><th>班主任</th><th>操作</th><th>操作</th></tr>
 
 
-                    <form action="" method="post" th:each="a,var:${#httpSession.getAttribute('BJlist')}">
-                        <tr>
-                            <td><input type="hidden" th:value="${a.cid}"></td>
-                            <td th:text="${var.count}"></td>
-                            <td><input type="text" th:name="cname" th:value="${a.cname}"></td>
+                <form action="BJXG" method="post" th:each="a,var:${#httpSession.getAttribute('BJlist')}">
+                    <tr>
+                        <td><input type="hidden" th:value="${a.cid}" name="cid"></td>
+                        <td th:text="${var.count}"></td>
+                        <td><input type="text" th:name="cname" th:value="${a.cname}"></td>
 
-                            <td>
+                        <td>
 
-                                <select th:name="coursename">
+                            <select th:name="courseid">
 
-                                    <option th:each="d,var:${#httpSession.getAttribute('KClist')}" th:selected="${a.course.courseName eq d.courseName}" th:text="${d.courseName}"></option>
+                                <option th:each="d,var:${#httpSession.getAttribute('KClist')}" th:selected="${a.course.courseName eq d.courseName}" th:value="${d.courseId}" th:text="${d.courseName}"></option>
 
-                                </select>
+                            </select>
 
-                            </td>
+                        </td>
 
-                            <td><input type="text" th:name="stage" th:value="${a.stage}"></td>
-                            <td>
-                                <select name="teacher">
-                                    <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:selected="${a.teacher.ename eq b.ename}" th:text="${b.ename}"></option>
-                                </select>
-                            </td>
-                            <td th:text="${a.headmaster.ename}"></td>
+                        <td>
+                            <select name="stage">
 
-                            <td >
-                                <select name="headmaster">
-
-                                    <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:selected="${a.headmaster.ename eq c.ename}" th:text="${c.ename}"></option>
-
-                                </select>
+                                <option th:value="第一阶段" th:text="第一阶段" th:selected="${a.stage eq '第一阶段'}"></option>
+                                <option th:value="第二阶段" th:text="第二阶段" th:selected="${a.stage eq '第二阶段'}"></option>
+                                <option th:value="第三阶段" th:text="第三阶段" th:selected="${a.stage eq '第三阶段'}"></option>
+                                <option th:value="第四阶段" th:text="第四阶段" th:selected="${a.stage eq '第四阶段'}"></option>
+                                <option th:value="第五阶段" th:text="第五阶段" th:selected="${a.stage eq '第五阶段'}"></option>
+                                <option th:value="第六阶段" th:text="第六阶段" th:selected="${a.stage eq '第六阶段'}"></option>
 
 
-                            </td>
-                            <td>
-                                <select th:name="coursename">
+                            </select>
 
-                                    <option th:each="C,var:${#httpSession.getAttribute('KClist')}" th:value="${c.courseName}">${a.course.courseName}</option>
+                        </td>
 
-                                </select>
+                        <td>
+                            <select name="teacherid">
+                                <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:selected="${a.teacher.ename eq b.ename}" th:value="${b.eid}" th:text="${b.ename}"></option>
+                            </select>
+                        </td>
+
+                        <td >
+                            <select name="headmasterid">
+
+                                <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:selected="${a.headmaster.ename eq c.ename}" th:value="${c.eid}" th:text="${c.ename}"></option>
+
+                            </select>
 
 
-                            </td>
+                        </td>
+                        <td><input type="submit" value="修改"></td>
+                        <td><button><a th:href="@{BJSC(cid=${a.cid})}">删除</a></button></td>
 
 
-                        </tr>
-                    </form>
+
+                    </tr>
+                </form>
 
 
+            </table>
+            <table>
+                <tr>添加班级</tr>
+                <form method="post" action="BJTJ" >
+                    <tr>
+                        <td></td>
+                        <td><input type="text" th:name="cname"></td>
+                        <td>
+                            <select th:name="courseid">
+
+                                <option th:each="d,var:${#httpSession.getAttribute('KClist')}"  th:value="${d.courseId}" th:text="${d.courseName}"></option>
+
+                            </select>
+
+                        </td>
+                        <td>
+                            <select name="stage">
+
+                                <option th:value="第一阶段" th:text="第一阶段"></option>
+                                <option th:value="第二阶段" th:text="第二阶段"></option>
+                                <option th:value="第三阶段" th:text="第三阶段"></option>
+                                <option th:value="第四阶段" th:text="第四阶段"></option>
+                                <option th:value="第五阶段" th:text="第五阶段"></option>
+                                <option th:value="第六阶段" th:text="第六阶段"></option>
+
+
+                            </select>
+                        </td>
+                        <td>
+                            <select name="teacherid">
+                                <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:value="${b.eid}" th:text="${b.ename}"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="headmasterid">
+
+                                <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:value="${c.eid}" th:text="${c.ename}"></option>
+
+                            </select>
+                        </td>
+                        <td><input type="submit" value="添加"></td>
+
+                    </tr>
+                </form>
             </table>
 
 

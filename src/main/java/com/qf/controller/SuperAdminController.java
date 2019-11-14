@@ -3,9 +3,14 @@ package com.qf.controller;
 import com.qf.pojo.*;
 import com.qf.service.*;
 import com.qf.util.HanyupinyinUtils;
+import com.sun.crypto.provider.HmacMD5;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.apache.ibatis.annotations.Param;
+import org.omg.Dynamic.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -78,6 +83,7 @@ public class SuperAdminController {
         user.setRolename("headmaster");
         employee.setUser(user);
         List<Employee>BZRlist = superAdmin_employeeService.YGCK(employee);
+        request.getSession().setAttribute("BZRlist",BZRlist);
         //讲师名称集合
         user.setRolename("teacher");
         employee.setUser(user);
@@ -91,6 +97,63 @@ public class SuperAdminController {
         request.getSession().setAttribute("JSlist",JSlist);
         request.getSession().setAttribute("BZRlist",BZRlist);
         return "BJGL";
+    }
+
+    @RequestMapping("BJXG")
+    public String BJGL(HttpServletRequest request){
+        Classes classes = new Classes();
+        Course course = new Course();
+        Employee teacher = new Employee();
+        Employee headmaster = new Employee();
+
+        course.setCourseId(Integer.parseInt(request.getParameter("courseid")));
+        teacher.setEid(Integer.parseInt(request.getParameter("teacherid")));
+        headmaster.setEid(Integer.parseInt(request.getParameter("headmasterid")));
+
+        classes.setCid(Integer.parseInt(request.getParameter("cid")));
+        classes.setCname(request.getParameter("cname"));
+        classes.setStage(request.getParameter("stage"));
+        classes.setTeacher(teacher);
+        classes.setHeadmaster(headmaster);
+        classes.setCourse(course);
+
+        System.out.println("--------------------------------------------------------------------------------------------------------------------");
+        superAdmin_classesService.BJXG(classes);
+
+
+        return "redirect:BJGL";
+    }
+
+    @RequestMapping("BJSC")
+    public String BJSC(HttpServletRequest request){
+        Classes classes = new Classes();
+        classes.setCid(Integer.parseInt(request.getParameter("cid")));
+        superAdmin_classesService.BJSC(classes);
+
+        return "redirect:BJGL";
+    }
+
+    @RequestMapping("BJTJ")
+    public String BJTJ(HttpServletRequest request){
+        Classes classes = new Classes();
+        Course course = new Course();
+        Employee teacher = new Employee();
+        Employee headmaster = new Employee();
+
+        course.setCourseId(Integer.parseInt(request.getParameter("courseid")));
+        teacher.setEid(Integer.parseInt(request.getParameter("teacherid")));
+        headmaster.setEid(Integer.parseInt(request.getParameter("headmasterid")));
+
+        classes.setCname(request.getParameter("cname"));
+        classes.setStage(request.getParameter("stage"));
+        classes.setTeacher(teacher);
+        classes.setHeadmaster(headmaster);
+        classes.setCourse(course);
+        System.out.println(classes);
+        superAdmin_classesService.BJTJ(classes);
+
+
+        return "redirect:BJGL";
     }
 
     //课程管理
