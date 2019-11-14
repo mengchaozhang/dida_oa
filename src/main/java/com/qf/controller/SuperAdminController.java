@@ -139,6 +139,8 @@ public class SuperAdminController {
             return "YGGL";
         }else{
         Employee employee = new Employee();
+        User user = new User();
+        employee.setUser(user);
         List<Employee>list = superAdmin_employeeService.YGCK(employee);
         System.out.println("1111111111111111111111111");
         System.out.println(list);
