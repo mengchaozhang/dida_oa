@@ -299,15 +299,30 @@
                         <tr>
                             <td><input type="hidden" th:value="${a.cid}"></td>
                             <td th:text="${var.count}"></td>
-                            <td th:text="${a.course.courseName}"></td>
-                            <td th:text="${a.stage}"></td>
-                            <td th:text="${a.teacher.ename}"></td>
+                            <td><input type="text" th:name="cname" th:value="${a.cname}"></td>
+
+                            <td>
+
+                                <select th:name="coursename">
+
+                                    <option th:each="d,var:${#httpSession.getAttribute('KClist')}" th:selected="${a.course.courseName eq d.courseName}" th:text="${d.courseName}"></option>
+
+                                </select>
+
+                            </td>
+
+                            <td><input type="text" th:name="stage" th:value="${a.stage}"></td>
+                            <td>
+                                <select name="teacher">
+                                    <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:selected="${a.teacher.ename eq b.ename}" th:text="${b.ename}"></option>
+                                </select>
+                            </td>
                             <td th:text="${a.headmaster.ename}"></td>
 
                             <td >
-                                <select>
+                                <select name="headmaster">
 
-                                    <option th:each="b,var:${#httpSession.getAttribute('BJlist')}" th:selected="${a.cid==b.cid}" th:value="${b.cid}" th:text="${b.cname}"><input th:text="${a.cname}" name="cname"/></option>
+                                    <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:selected="${a.headmaster.ename eq c.ename}" th:text="${c.ename}"></option>
 
                                 </select>
 
