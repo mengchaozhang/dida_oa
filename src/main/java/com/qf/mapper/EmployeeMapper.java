@@ -4,14 +4,22 @@ import com.qf.pojo.Classes;
 import com.qf.pojo.Employee;
 import com.qf.pojo.Student;
 import com.qf.pojo.User;
-import com.qf.pojo.Employee;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface EmployeeMapper {
     public Employee getEmployeeByUid(int uid);
 
-    public Classes getClassesByEid(int eid);
+    public Classes getClassesByTeacherEid(int eid);
+
+    public Classes getClassesByHeadmasterEid(int eid);
+
+    public List<Classes> getClassesListByTeacherEid(@Param("eid")int eid);
+
+    public List<Classes> getClassesListByHeadmasterEid(@Param("eid")int eid);
+
+    public List<Classes> getClassesListByBoss();
 
     public List<Student> getStudentListByCid(int cid);
 

@@ -40,10 +40,25 @@ public class StudentInfoManagerServiceImpl implements StudentInfoManagerService 
     private ClassesMapper classesMapper;
 
     @Override
+    public Classes getClassesByCid(int cid) {
+        return classesMapper.getClassesByCid(cid);
+    }
+
+    @Override
+    public List<Student> getStudentInfoListByCid(int cid) {
+        return studentMapper.getStudentListBycid(cid);
+    }
+
+    @Override
     public List<Student> getStudentInfoListByUid(int uid) {
         Employee employee = employeeMapper.getEmployeeByUid(uid);
-        Classes classes = employeeMapper.getClassesByEid(employee.getEid());
+        Classes classes = employeeMapper.getClassesByTeacherEid(employee.getEid());
         return employeeMapper.getStudentListByCid(classes.getCid());
+    }
+
+    @Override
+    public Student getStudentBySid(int sid) {
+        return studentMapper.getStudentBySid(sid);
     }
 
     @Override

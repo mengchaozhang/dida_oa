@@ -3,11 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.StudentMapper">
+    <update id="updateStudent" parameterType="com.qf.pojo.Student">
+        update student set sname=#{sname}, ssex=#{ssex}, sage=#{sage}, sphone=#{sphone} where sid=#{sid}
+    </update>
 
-    <select id="getStudentListBycid" parameterType="int" resultType="com.qf.pojo.Student">
-        select * from student where cid=#{cid}
+    <select id="getStudentListBycid" parameterType="int" resultMap="com.qf.mapper.WeekReportMapper.studentMap">
+        select * from student inner join classes on student.cid=classes.cid and student.cid=#{cid}
     </select>
-    <select id="getStudentByUid" parameterType="int" resultType="com.qf.pojo.Student">
-        select * from student where uid=#{uid}
+    <select id="getStudentByUid" parameterType="int" resultMap="com.qf.mapper.WeekReportMapper.studentMap">
+        select * from student inner join classes on student.cid=classes.cid and uid=#{uid}
+    </select>
+    <select id="getStudentBySid" resultMap="com.qf.mapper.WeekReportMapper.studentMap">
+        select * from student inner join classes on student.cid=classes.cid and sid=#{sid}
     </select>
 </mapper>

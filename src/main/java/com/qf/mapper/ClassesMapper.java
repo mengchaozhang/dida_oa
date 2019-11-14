@@ -5,9 +5,18 @@ import com.qf.pojo.Classes;
 import java.util.List;
 
 public interface ClassesMapper {
+
+    public Classes getClassesByCid(int cid);
+
     public Classes getClassesByCname(String cname);
+
     public List<Classes> getClassesCK(Classes classes);
+
     public void addCLassesTJ(Classes classes);
+
     public void updateClassesXG(Classes classes);
-    public void deleteClassesSC(Classes classes);;
+
+    public void deleteClassesSC(Classes classes);
+
+    ;
 }
