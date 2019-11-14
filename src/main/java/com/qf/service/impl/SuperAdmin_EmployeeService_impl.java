@@ -34,7 +34,8 @@ public class SuperAdmin_EmployeeService_impl implements SuperAdmin_EmployeeServi
     }
 
     @Override
-    public void YGXG(Employee employee) {
+    public void YGXG(Employee employee){
+        System.out.println("1111111111111操作了");
         employeeMapper.updateEmployeeXG(employee);
     }
 

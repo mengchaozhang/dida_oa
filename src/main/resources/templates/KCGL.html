@@ -84,14 +84,14 @@
             <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages12" aria-expanded="false" aria-controls="pages12" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>班级管理</span></a>
                 <div id="pages12" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">查看班级资料</a></li>
+                        <li class="sidebar-list-item"><a href="BJGL" class="sidebar-link text-muted pl-lg-5">查看班级资料</a></li>
                     </ul>
                 </div>
             </li>
             <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages13" aria-expanded="false" aria-controls="pages13" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>课程管理</span></a>
                 <div id="pages13" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">查看课程</a></li>
+                        <li class="sidebar-list-item"><a href="KCGL" class="sidebar-link text-muted pl-lg-5">查看课程</a></li>
                     </ul>
                 </div>
             </li>
@@ -105,14 +105,15 @@
             <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages15" aria-expanded="false" aria-controls="pages15" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>用户管理</span></a>
                 <div id="pages15" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">管理用户</a></li>
+                        <li class="sidebar-list-item"><a href="YHGL" class="sidebar-link text-muted pl-lg-5">管理用户</a></li>
                     </ul>
                 </div>
             </li>
             <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages16" aria-expanded="false" aria-controls="pages16" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>员工管理</span></a>
                 <div id="pages16" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">员工信息管理</a></li>
+                        <li class="sidebar-list-item"><a href="YGGL" class="sidebar-link text-muted pl-lg-5">员工信息管理</a></li>
+                        <li class="sidebar-list-item"><a href="YGMHCK" class="sidebar-link text-muted pl-lg-5">搜索</a></li>
                     </ul>
                 </div>
             </li>
@@ -292,26 +293,22 @@
 
             <table>
                 <tr><th>课程信息</th></tr>
-                <tr><th>序号</th><th>科目名称</th>><th>操作</th><th>操作</th></tr>
+                <tr><th>序号</th><th>科目名称</th>><th>操作</th></tr>
 
                 <tr th:each="a,var:${#httpSession.getAttribute('KClist')}">
-                    <form action="KCXG" method="post">
-                    <td th:text="${var.count}" ></td>
-                        <td>
-                            <select name="courseName">
-                                <option th:each="b,var:${#httpSession.getAttribute('KClist')}" th:selected="${a.courseId==b.courseId}" th:text="${b.courseName}">
 
-                                </option>
-                            </select>
-                        </td>
-                        <td>
-                            <a th:href="@{KCXG(courseId=${a.courseId})}">修改</a>
-                        </td>
-                        <td>
-                            <a th:href="@{KCSC(courseId=${a.courseId})}">删除</a>
-                        </td>
-                    </form>
+
+                    <td th:text="${var.count}" ></td>
+                    <td th:text="${a.courseName}"></td>
+                    <td></td>
+                    <td>
+                         <button><a th:href="@{KCSC(courseId=${a.courseId})}">删除</a></button>
+                    </td>
+
                 </tr>
+                <form method="post" action="KCTJ">
+                    <tr><td><input type="hidden"></td><td><input type="text" name="courseName"></td><td><input type="submit"value="添加"></td></tr>
+                </form>
 
 
             </table>
