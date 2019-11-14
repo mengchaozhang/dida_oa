@@ -1,5 +1,7 @@
 package com.qf.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qf.pojo.*;
 import com.qf.service.*;
 import com.qf.util.HanyupinyinUtils;
@@ -10,6 +12,7 @@ import org.omg.Dynamic.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,7 +77,10 @@ public class SuperAdminController {
     //功能实现
     //班级管理
     @RequestMapping("BJGL")
-    public String KCHHL(HttpServletRequest request){
+    public String KCHHL(HttpServletRequest request,@RequestParam(defaultValue = "1") int pageNum){
+     /*   PageHelper.startPage(pageNum,5);
+       List<User> userList = userService.getUserList();
+        PageInfo<User> pageInfo = new PageInfo<User>(userList);*/
         Classes classes = new Classes();
         Course course = new Course();
         //班主任名称集合
@@ -96,6 +102,10 @@ public class SuperAdminController {
         request.getSession().setAttribute("KClist",list1);
         request.getSession().setAttribute("JSlist",JSlist);
         request.getSession().setAttribute("BZRlist",BZRlist);
+        System.out.println(list.size());
+        System.out.println(list1.size());
+        System.out.println(JSlist.size());
+        System.out.println(BZRlist.size());
         return "BJGL";
     }
 
