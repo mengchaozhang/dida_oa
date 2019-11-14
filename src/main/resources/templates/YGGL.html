@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Home</title>
+    <title>员工管理</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -30,14 +30,6 @@
 <header class="header">
     <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
-            <li class="nav-item">
-                <form id="searchForm" class="ml-auto d-none d-lg-block">
-                    <div class="form-group position-relative mb-0">
-                        <button type="submit" style="top: -3px; left: 0;" class="position-absolute bg-white border-0 p-0"><i class="o-search-magnify-1 text-gray text-lg"></i></button>
-                        <input type="search" placeholder="搜索 ..." class="form-control form-control-sm border-0 no-shadow pl-4">
-                    </div>
-                </form>
-            </li>
             <li class="nav-item dropdown mr-3">
                 <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
                     <div class="d-flex align-items-center">
@@ -68,8 +60,8 @@
                 </div>
             </li>
             <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
-                <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family" th:text="${username}"></strong></a>
-                    <div class="dropdown-divider"></div><a href="login.html" class="dropdown-item">Logout</a>
+                <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family" th:text="${#session.getAttribute('username')}"></strong></a>
+                    <div class="dropdown-divider"></div><a href="/logout.action" class="dropdown-item">Logout</a>
                 </div>
             </li>
         </ul>
@@ -291,39 +283,64 @@
     </div>
     <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-5">
-            <form method="post" action="YGGL">
-                <input type="text" name="string">
-                <input type="submit" value="搜索">
-            </form>
-            <table>
-                <tr><th>员工信息</th></tr>
-                <tr><th></th><th>序号</th><th>姓名</th><th>性别</th><th>年龄</th><th>电话</th><th>操作</th><th>操作</th></tr>
+            <section class="py-5">
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="text-uppercase mb-0">员工信息</h6>
+                                <div class="line"></div>
+                                <form action="YGGL" method="post" id="searchForm1" class="ml-auto d-none d-lg-block">
+                                    <table>
+                                        <tr>
+                                            <td><input  name="string" type="search" placeholder="员工搜索 ..." class="form-control col-md-11"></td>
+                                            <td><button type="submit" class="btn btn-primary">搜索</button></td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped card-text">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 70px">序号</th>
+                                        <th style="padding-left: 60px">姓名</th>
+                                        <th style="width: 150px ;padding-left: 40px">性别</th>
+                                        <th style="padding-left: 25px">年龄</th>
+                                        <th style="padding-left: 60px">电话</th>
+                                        <th style="padding-left: 30px">操作</th>
+                                        <th style="padding-left: 30px">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <form action="YGXG" method="post" th:each="a,var:${#httpSession.getAttribute('YGlist')}">
 
-
-                    <form action="YGXG" method="post" th:each="a,var:${#httpSession.getAttribute('YGlist')}">
-
-                        <tr>
-<!--                            <td><input type="hidden" th:value="${a.eid}" th:name="eid"></td>-->
-                            <td><input type="hidden" th:name="eid" th:value="${a.eid}" ></td>
-                            <td th:text="${var.count}"></td>
-                            <td><input th:value="${a.ename}" th:name="ename"></td>
-                            <td><select th:name="esex">
-
-                                <option th:value="男" th:text="男" th:selected="${a.esex eq '男'}"></option>
-                                <option th:value="女" th:text="女" th:selected="${a.esex eq '女'}"></option>
-                            </select></td>
-                            <td><input th:value="${a.eage}" th:name="eage"></td>
-                            <td><input th:value="${a.ephone}" th:name="ephone"></td>
-                            <td><input type="submit"value="修改"></td>
-                            <td><button><a th:href="@{YGSC(eid=${a.eid})}">删除</a></button></td>
-                        </tr>
-                    </form>
-
-
-
-            </table>
-
-
+                                        <tr>
+                                            <!--                            <td><input type="hidden" th:value="${a.eid}" th:name="eid"></td>-->
+                                            <td th:text="${var.count}"></td>
+                                            <td>
+                                                <input type="hidden" th:name="eid" th:value="${a.eid}" class="form-control col-md-11">
+                                                <input th:value="${a.ename}" th:name="ename" class="form-control col-md-11">
+                                            </td>
+                                            <td>
+                                                <select th:name="esex" class="form-control col-md-11">
+                                                    <option th:value="男" th:text="男" th:selected="${a.esex eq '男'}"></option>
+                                                    <option th:value="女" th:text="女" th:selected="${a.esex eq '女'}"></option>
+                                                </select>
+                                            </td>
+                                            <td><input th:value="${a.eage}" th:name="eage" class="form-control col-md-11"></td>
+                                            <td><input th:value="${a.ephone}" th:name="ephone" class="form-control col-md-11"></td>
+                                            <td><input type="submit"value="修改" class="btn btn-primary"></td>
+                                            <td><a th:href="@{YGSC(eid=${a.eid})}" class="btn btn-outline-primary btn-large">删除</a></td>
+                                        </tr>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
     <!-- JavaScript files-->

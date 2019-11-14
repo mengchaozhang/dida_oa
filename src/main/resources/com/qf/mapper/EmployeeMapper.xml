@@ -3,6 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.mapper.EmployeeMapper">
+
+    <select id="getClassesByTeacherEid" parameterType="int" resultType="com.qf.pojo.Classes">
+        select * from classes where teacher_eid=#{eid}
+    </select>
+
+    <select id="getClassesListByTeacherEid" parameterType="int" resultType="com.qf.pojo.Classes">
+        select * from classes where teacher_eid=${eid}
+    </select>
+
+    <select id="getClassesByHeadmasterEid" resultType="com.qf.pojo.Classes">
+        select * from classes where headmaster_eid=#{eid}
+    </select>
+
+    <select id="getClassesListByHeadmasterEid" parameterType="int" resultType="com.qf.pojo.Classes">
+        select * from classes where headmaster_eid=#{eid}
+    </select>
+
+    <select id="getClassesListByBoss" resultType="com.qf.pojo.Classes">
+        select * from classes
+    </select>
+
     <insert id="addStudentList" parameterType="java.util.ArrayList">
         insert into student (sid, sname, ssex, sage, sphone, cid, uid) values
         <foreach collection="list" item="i" separator=",">
