@@ -19,7 +19,7 @@
         </where>
     </select>
     <insert id="addCourseTJ" parameterType="course">
-        insert into course (course_name) value (#courseName)
+        insert into course (course_name) value (#{courseName})
     </insert>
     <update id="updateCourseXG" parameterType="course">
         update course set course_name=#{courseName}

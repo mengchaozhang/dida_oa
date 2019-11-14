@@ -113,6 +113,8 @@
                 <div id="pages16" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="YGGL" class="sidebar-link text-muted pl-lg-5">员工信息管理</a></li>
+                        <li class="sidebar-list-item"><a href="YGMHCK" class="sidebar-link text-muted pl-lg-5">搜索</a></li>
+
                     </ul>
                 </div>
             </li>
@@ -289,58 +291,49 @@
     </div>
     <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-5">
-
+            <form method="post" action="YGGL">
+                <input type="text" name="string">
+                <input type="submit" value="搜索">
+            </form>
             <table>
-                <tr><th>班级信息</th></tr>
-                <tr><th></th><th>序号</th><th>班级名称</th><th>科目名称</th><th>阶段</th><th>授课老师</th><th>班主任</th><th>操作</th><th>操作</th></tr>
+                <tr><th>员工信息</th></tr>
+                <tr><th></th><th>序号</th><th>姓名</th><th>性别</th><th>年龄</th><th>电话</th><th>操作</th><th>操作</th></tr>
 
 
-                    <form action="" method="post" th:each="a,var:${#httpSession.getAttribute('BJlist')}">
+                    <form action="YGXG" method="post" th:each="a,var:${#httpSession.getAttribute('YGlist')}">
+
                         <tr>
-                            <td><input type="hidden" th:value="${a.cid}"></td>
+<!--                            <td><input type="hidden" th:value="${a.eid}" th:name="eid"></td>-->
+                            <td><input type="hidden" th:name="eid" th:value="${a.eid}" ></td>
                             <td th:text="${var.count}"></td>
-                            <td th:text="${a.course.courseName}"></td>
-                            <td th:text="${a.stage}"></td>
-                            <td th:text="${a.teacher.ename}"></td>
-                            <td th:text="${a.headmaster.ename}"></td>
+                            <td><input th:value="${a.ename}" th:name="ename"></td>
+                            <td><select th:name="esex">
 
-                            <td >
-                                <select>
-
-                                    <option th:each="b,var:${#httpSession.getAttribute('BJlist')}" th:selected="${a.cid==b.cid}" th:value="${b.cid}" th:text="${b.cname}"><input th:text="${a.cname}" name="cname"/></option>
-
-                                </select>
-
-
-                            </td>
-                            <td>
-                                <select th:name="coursename">
-
-                                    <option th:each="C,var:${#httpSession.getAttribute('KClist')}" th:value="${c.courseName}">${a.course.courseName}</option>
-
-                                </select>
-
-
-                            </td>
-
-
+                                <option th:value="男" th:text="男" th:selected="${a.esex eq '男'}"></option>
+                                <option th:value="女" th:text="女" th:selected="${a.esex eq '女'}"></option>
+                            </select></td>
+                            <td><input th:value="${a.eage}" th:name="eage"></td>
+                            <td><input th:value="${a.ephone}" th:name="ephone"></td>
+                            <td><input type="submit"value="修改"></td>
+                            <td><button><a th:href="@{YGSC(eid=${a.eid})}">删除</a></button></td>
                         </tr>
                     </form>
+
 
 
             </table>
 
 
+        </div>
     </div>
-</div>
-<!-- JavaScript files-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/popper.js/umd/popper.min.js"> </script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-<script src="vendor/chart.js/Chart.min.js"></script>
-<script src="js/js.cookie.min.js"></script>
-<script src="js/charts-home.js"></script>
-<script src="js/front.js"></script>
+    <!-- JavaScript files-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="js/js.cookie.min.js"></script>
+    <script src="js/charts-home.js"></script>
+    <script src="js/front.js"></script>
 </body>
 </html>

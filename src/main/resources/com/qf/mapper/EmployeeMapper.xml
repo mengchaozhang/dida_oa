@@ -53,9 +53,10 @@
             <if test="eid!=0">
                 eid=#{eid}
             </if>
-            <if test="user.uid!=0">
-               and uid=#{user.uid}
+            <if test="user.rolename!=null">
+                and user.rolename=#{user.rolename}
             </if>
+
             and employee.uid=user.uid
         </where>
     </select>
@@ -65,26 +66,26 @@
     <insert id="addEmployeeTJ" parameterType="employee">
         insert into employee (ename,esex,eage,ephone,uid) values (#{ename},#{esex},#{eage},#{ephone},#{user.uid})
     </insert>
-    <update id="updateEmployeeXG" parameterType="employee">
+    <update id="updateEmployeeXG">
         update employee
         <set>
             <if test="ename!=null">
-                ename=#{ename}
+                ename=#{ename},
             </if>
             <if test="esex!=null">
-                esex=#{esex}
+                esex=#{esex},
             </if>
             <if test="eage!=0">
-                eage=#{eage}
+                eage=#{eage},
             </if>
             <if test="ephone!=null">
                 ephone=#{ephone}
             </if>
         </set>
-        where uid=#{user.uid}
+        where eid=#{eid}
     </update>
     <delete id="deleteEmployeeSC" parameterType="employee">
-        delete employee where uid=#{user.uid}
+        delete from employee where eid=#{eid}
     </delete>
 </mapper>
         <!--yubo-->

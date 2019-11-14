@@ -20,17 +20,17 @@
             </if>
         </where>
     </select>
-    <insert id="addUserTJ" parameterType="user">
+    <insert id="addUserTJ" parameterType="user" useGeneratedKeys="true" keyProperty="uid">
         insert into user (username,password,rolename) values (#{username},#{password},#{rolename})
     </insert>
     <update id="updateUserXG" parameterType="user">
         update user 
         <set>
             <if test="username!=null">
-                username=#{username}
+                username=#{username},
             </if>
             <if test="password!=null">
-                password=#{password}
+                password=#{password},
             </if>
             <if test="rolename!=null">
                 rolename=#{rolename}
@@ -39,7 +39,7 @@
         where uid=#{uid}
     </update>
     <delete id="deleteUserSC" parameterType="user">
-        delete user where uid=#{uid}
+        delete from user where uid=#{uid}
     </delete>
     <select id="getUserMHCK" parameterType="java.lang.String" resultType="user">
         select * from user where username like '%${value}%'
