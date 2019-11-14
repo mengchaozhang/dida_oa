@@ -42,6 +42,7 @@ public class GetRoleServiceImpl implements GetRoleService {
     @Override
     public String getSnameByUid(int uid) {
         Student student = studentMapper.getStudentByUid(uid);
+        System.out.println(student);
         return student.getSname();
     }
 }

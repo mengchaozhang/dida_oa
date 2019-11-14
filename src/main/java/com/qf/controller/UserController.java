@@ -43,6 +43,7 @@ public class UserController {
                 if ("teacher".equals(user1.getRolename()) || "headmaster".equals(user1.getRolename()) || "boss".equals(user1.getRolename()) || "admin".equals(user1.getRolename())) {
                     session.setAttribute("username", getRoleService.getEnameByUid(user1.getUid()));
                 } else {
+                    System.out.println(getRoleService.getSnameByUid(user1.getUid()));
                     session.setAttribute("username", getRoleService.getSnameByUid(user1.getUid()));
                 }
                 return "index";

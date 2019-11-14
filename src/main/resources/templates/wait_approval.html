@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
   <head>
-    <meta charset="utf-8"xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Home</title>
     <meta name="description" content="">
@@ -125,48 +125,37 @@
                       <thead>
                       <tr>
                         <th>序号</th>
+                        <th>申请人</th>
                         <th>开始时间</th>
                         <th>结束时间</th>
-                        <th>原因</th>
-                        <th>操作</th>
+                        <th>请假原因</th>
+                          <th shiro:hasAnyRoles="teacher,boss,headmaster">操作</th>
                       </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Jacob</td>
-                      </tr>
+                        <tr th:each="s,var:${list}">
+                          <td th:text="${var.count}"></td>
+                          <td th:text="${s.student.sname}"></td>
+                          <td th:text="${s.startDate}"></td>
+                          <td th:text="${s.endDate}"></td>
+                          <td th:text="${s.reason}"></td>
+                            <td shiro:hasAnyRoles="teacher,headmaster">
+                              <a th:href="@{allupdate(hid=${s.hid})}" th:text="准假"></a>
+                            </td>
+                            <td shiro:hasRole="boss">
+                              <a th:if="${s.flag==0}" th:href="@{allupdate(hid=${s.hid})}" th:text="准假"></a>
+                            </td>
+                        </tr>
+                        <tr th:each="e,var:${empList}">
+                          <td th:text="${var.count}"></td>
+                          <td th:text="${e.employee.ename}"></td>
+                          <td th:text="${e.startDate}"></td>
+                          <td th:text="${e.endDate}"></td>
+                          <td th:text="${e.reason}"></td>
+                          <td shiro:hasRole="boss">
+                            <a th:if="${e.flag==1}" th:href="@{bossupdate(hid=${e.hid})}" th:text="准假"></a></a>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
