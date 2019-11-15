@@ -28,7 +28,7 @@
 <body>
 <!-- navbar-->
 <header class="header">
-    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
+    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
             <li class="nav-item dropdown mr-3">
                 <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
@@ -84,13 +84,6 @@
                 <div id="pages13" class="collapse">
                     <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
                         <li class="sidebar-list-item"><a href="KCGL" class="sidebar-link text-muted pl-lg-5">查看课程</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li shiro:hasRole="admin" class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages14" aria-expanded="false" aria-controls="pages14" class="sidebar-link text-muted"><i class="o-imac-screen-1 mr-3 text-gray"></i><span>角色管理</span></a>
-                <div id="pages14" class="collapse">
-                    <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                        <li class="sidebar-list-item"><a href="jumpStudentInfo" class="sidebar-link text-muted pl-lg-5">查看角色信息</a></li>
                     </ul>
                 </div>
             </li>
@@ -281,126 +274,133 @@
     </div>
     <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-5">
-
-            <table>
-                <tr><th>班级信息</th></tr>
-                <tr><th></th><th>序号</th><th>班级名称</th><th>科目名称</th><th>阶段</th><th>授课老师</th><th>班主任</th><th>操作</th><th>操作</th></tr>
-
-
-                <form action="BJXG" method="post" th:each="a,var:${#httpSession.getAttribute('BJlist')}">
-                    <tr>
-                        <td><input type="hidden" th:value="${a.cid}" name="cid"></td>
-                        <td th:text="${var.count}"></td>
-                        <td><input type="text" th:name="cname" th:value="${a.cname}"></td>
-
-                        <td>
-
-                            <select th:name="courseid">
-
-                                <option th:each="d,var:${#httpSession.getAttribute('KClist')}" th:selected="${a.course.courseName eq d.courseName}" th:value="${d.courseId}" th:text="${d.courseName}"></option>
-
-                            </select>
-
-                        </td>
-
-                        <td>
-                            <select name="stage">
-
-                                <option th:value="第一阶段" th:text="第一阶段" th:selected="${a.stage eq '第一阶段'}"></option>
-                                <option th:value="第二阶段" th:text="第二阶段" th:selected="${a.stage eq '第二阶段'}"></option>
-                                <option th:value="第三阶段" th:text="第三阶段" th:selected="${a.stage eq '第三阶段'}"></option>
-                                <option th:value="第四阶段" th:text="第四阶段" th:selected="${a.stage eq '第四阶段'}"></option>
-                                <option th:value="第五阶段" th:text="第五阶段" th:selected="${a.stage eq '第五阶段'}"></option>
-                                <option th:value="第六阶段" th:text="第六阶段" th:selected="${a.stage eq '第六阶段'}"></option>
-
-
-                            </select>
-
-                        </td>
-
-                        <td>
-                            <select name="teacherid">
-                                <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:selected="${a.teacher.ename eq b.ename}" th:value="${b.eid}" th:text="${b.ename}"></option>
-                            </select>
-                        </td>
-
-                        <td >
-                            <select name="headmasterid">
-
-                                <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:selected="${a.headmaster.ename eq c.ename}" th:value="${c.eid}" th:text="${c.ename}"></option>
-
-                            </select>
-
-
-                        </td>
-                        <td><input type="submit" value="修改"></td>
-                        <td><button><a th:href="@{BJSC(cid=${a.cid})}">删除</a></button></td>
-
-
-
-                    </tr>
-                </form>
-
-
-            </table>
-            <table>
-                <tr>添加班级</tr>
-                <form method="post" action="BJTJ" >
-                    <tr>
-                        <td></td>
-                        <td><input type="text" th:name="cname"></td>
-                        <td>
-                            <select th:name="courseid">
-
-                                <option th:each="d,var:${#httpSession.getAttribute('KClist')}"  th:value="${d.courseId}" th:text="${d.courseName}"></option>
-
-                            </select>
-
-                        </td>
-                        <td>
-                            <select name="stage">
-
-                                <option th:value="第一阶段" th:text="第一阶段"></option>
-                                <option th:value="第二阶段" th:text="第二阶段"></option>
-                                <option th:value="第三阶段" th:text="第三阶段"></option>
-                                <option th:value="第四阶段" th:text="第四阶段"></option>
-                                <option th:value="第五阶段" th:text="第五阶段"></option>
-                                <option th:value="第六阶段" th:text="第六阶段"></option>
-
-
-                            </select>
-                        </td>
-                        <td>
-                            <select name="teacherid">
-                                <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:value="${b.eid}" th:text="${b.ename}"></option>
-                            </select>
-                        </td>
-                        <td>
-                            <select name="headmasterid">
-
-                                <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:value="${c.eid}" th:text="${c.ename}"></option>
-
-                            </select>
-                        </td>
-                        <td><input type="submit" value="添加"></td>
-
-                    </tr>
-                </form>
-            </table>
-            <a th:href="@{BJGL(pageNum=1)}" th:text="首页"></a>
-            <span th:if="${!pageInfo.hasPreviousPage}">上一页</span>
-            <a th:if="${pageInfo.hasPreviousPage}" th:href="@{BJGL(pageNum=${pageInfo.prePage})}" th:text="上一页"></a>
-            <!--显示所有页码，navigatepageNums表示所有页码的数组集合-->
-            <span th:each="i: ${pageInfo.navigatepageNums}">
-        <a th:href="@{BJGL(pageNum=${i})}" th:text="${i}"></a>
-</span>
-            <a th:if="${pageInfo.hasNextPage}" th:href="@{BJGL(pageNum=${pageInfo.nextPage})}" th:text="下一页"></a>
-            <span th:if="${!pageInfo.hasNextPage}">下一页</span>
-            <a th:href="@{BJGL(pageNum=${pageInfo.lastPage})}" th:text="尾页"></a>
-
-
+            <section class="py-5">
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="text-uppercase mb-0">班级信息</h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped card-text">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th style="padding-left: 60px">班级名称</th>
+                                        <th style="padding-left: 60px">科目名称</th>
+                                        <th style="padding-left: 40px">阶段</th>
+                                        <th style="padding-left: 30px">授课老师</th>
+                                        <th style="padding-left: 30px">班主任</th>
+                                        <th style="padding-left: 25px">操作</th>
+                                        <th style="padding-left: 25px">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <form action="BJXG" method="post" th:each="a,var:${#httpSession.getAttribute('BJlist')}">
+                                        <tr>
+                                            <td th:text="${var.count}"></td>
+                                            <td>
+                                                <input type="hidden" th:value="${a.cid}" name="cid" class="form-control col-md-11">
+                                                <input type="text" th:name="cname" th:value="${a.cname}" class="form-control col-md-11">
+                                            </td>
+                                            <td>
+                                                <select th:name="courseid" class="form-control col-md-11">
+                                                    <option th:each="d,var:${#httpSession.getAttribute('KClist')}" th:selected="${a.course.courseName eq d.courseName}" th:value="${d.courseId}" th:text="${d.courseName}"></option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="stage" class="form-control col-md-11">
+                                                    <option th:value="第一阶段" th:text="第一阶段" th:selected="${a.stage eq '第一阶段'}"></option>
+                                                    <option th:value="第二阶段" th:text="第二阶段" th:selected="${a.stage eq '第二阶段'}"></option>
+                                                    <option th:value="第三阶段" th:text="第三阶段" th:selected="${a.stage eq '第三阶段'}"></option>
+                                                    <option th:value="第四阶段" th:text="第四阶段" th:selected="${a.stage eq '第四阶段'}"></option>
+                                                    <option th:value="第五阶段" th:text="第五阶段" th:selected="${a.stage eq '第五阶段'}"></option>
+                                                    <option th:value="第六阶段" th:text="第六阶段" th:selected="${a.stage eq '第六阶段'}"></option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="teacherid" class="form-control col-md-11">
+                                                    <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:selected="${a.teacher.ename eq b.ename}" th:value="${b.eid}" th:text="${b.ename}"></option>
+                                                </select>
+                                            </td>
+                                            <td >
+                                                <select name="headmasterid" class="form-control col-md-11">
+                                                    <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:selected="${a.headmaster.ename eq c.ename}" th:value="${c.eid}" th:text="${c.ename}"></option>
+                                                </select>
+                                            </td>
+                                            <td><input type="submit" value="修改" class="btn btn-primary"></td>
+                                            <td><a th:href="@{BJSC(cid=${a.cid})}" class="btn btn-outline-primary btn-large">删除</a></td>
+                                        </tr>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="text-uppercase mb-0">班级添加</h6>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" action="BJTJ" >
+                                <table class="table table-striped card-text">
+                                    <thead>
+                                    <tr>
+                                        <th style="padding-left: 60px">班级名称</th>
+                                        <th style="padding-left: 60px">科目名称</th>
+                                        <th style="padding-left: 40px">阶段</th>
+                                        <th style="padding-left: 30px">授课老师</th>
+                                        <th style="padding-left: 30px">班主任</th>
+                                        <th style="padding-left: 25px">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" th:name="cname" class="form-control col-md-11">
+                                            </td>
+                                            <td>
+                                                <select th:name="courseid" class="form-control col-md-11">
+                                                    <option th:each="d,var:${#httpSession.getAttribute('KClist')}"  th:value="${d.courseId}" th:text="${d.courseName}"></option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="stage" class="form-control col-md-11">
+                                                    <option th:value="第一阶段" th:text="第一阶段"></option>
+                                                    <option th:value="第二阶段" th:text="第二阶段"></option>
+                                                    <option th:value="第三阶段" th:text="第三阶段"></option>
+                                                    <option th:value="第四阶段" th:text="第四阶段"></option>
+                                                    <option th:value="第五阶段" th:text="第五阶段"></option>
+                                                    <option th:value="第六阶段" th:text="第六阶段"></option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="teacherid" class="form-control col-md-11">
+                                                    <option th:each="b,var:${#httpSession.getAttribute('JSlist')}" th:value="${b.eid}" th:text="${b.ename}"></option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="headmasterid" class="form-control col-md-11">
+                                                    <option th:each="c,var:${#httpSession.getAttribute('BZRlist')}" th:value="${c.eid}" th:text="${c.ename}"></option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="submit" value="添加" class="btn btn-primary">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
-</div>
 <!-- JavaScript files-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/popper.js/umd/popper.min.js"> </script>

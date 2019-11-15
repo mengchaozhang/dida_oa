@@ -1,6 +1,7 @@
 package com.qf.service.impl;
 
 import com.qf.mapper.HolidayMapper;
+import com.qf.mapper.StudentMapper;
 import com.qf.pojo.*;
 import com.qf.service.HolidayService;
 import org.activiti.engine.RuntimeService;
@@ -22,6 +23,9 @@ public class HolidayServiceImpl implements HolidayService {
     private RuntimeService runtimeService;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private StudentMapper studentMapper;
+
 
     public RuntimeService getRuntimeService() {
         return runtimeService;
@@ -56,15 +60,17 @@ public class HolidayServiceImpl implements HolidayService {
     public int addStudentHoliday(StudentHoliday studentHoliday) {
         //获取user表中的所有用户
         List<User> list = holidayMapper.getUserNameList();
+        Student student = studentMapper.getStudentByUid(studentHoliday.getUser().getUid());
+        Classes classes = holidayMapper.getTeacherAndHeadmaster(student.getClasses().getCid());
+        User teacherUser = holidayMapper.getUid6(classes.getTeacher().getEname());
+        User headmasterUser = holidayMapper.getUid6(classes.getHeadmaster().getEname());
         Map<String,Object> map = new HashMap<>();
         map.put("sname",studentHoliday.getUser().getUsername());
+        map.put("tname",teacherUser.getUsername());
+        map.put("hname",headmasterUser.getUsername());
         //遍历集合根据角色获取讲师、班主任、校长名字
         for (User u : list){
-            if (u.getRolename().equals("teacher")){
-                map.put("tname",u.getUsername());
-            }else if (u.getRolename().equals("headmaster")){
-                map.put("hname",u.getUsername());
-            }else if (u.getRolename().equals("boss")){
+             if (u.getRolename().equals("boss")){
                 map.put("bname",u.getUsername());
             }
         }

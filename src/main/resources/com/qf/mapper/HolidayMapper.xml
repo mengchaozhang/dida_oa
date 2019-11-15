@@ -181,6 +181,7 @@
     <resultMap id="studentMap" type="student">
         <id property="sid" column="sid"></id>
         <result property="sname" column="sname"></result>
+        <result property="cid" column="cid"></result>
         <association property="user" column="uid" resultMap="user4Map"></association>
     </resultMap>
     <resultMap id="user4Map" type="user">
@@ -216,5 +217,16 @@
     <select id="getEname" resultMap="employholiday3Map">
         select * from employ_holiday,employee,user where employ_holiday.uid=user.uid
         and employee.uid = user.uid and employ_holiday.uid=employee.uid
+    </select>
+<!--获取ename-->
+    <select id="getTeacherAndHeadmaster" parameterType="int" resultMap="com.qf.mapper.ClassesMapper.Classmap">
+         SELECT *,
+(SELECT ename FROM employee WHERE employee.eid=teacher_eid)AS teacher,
+(select ename FROM employee WHERE employee.eid=headmaster_eid)AS headmaster
+FROM classes,course where classes.course_id=course.course_id and cid=#{cid}
+
+    </select>
+    <select id="getUid6" resultType="com.qf.pojo.User">
+        select * from user,employee where user.uid = employee.uid and employee.ename=#{ename}
     </select>
 </mapper>

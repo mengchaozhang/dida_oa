@@ -68,4 +68,9 @@ public interface HolidayMapper {
      */
     public List<StudentHoliday> getSname();
     public List<EmployHoliday> getEname();
+    /**
+     * 学生请假对应班级教师和班主任审批
+     */
+    public Classes getTeacherAndHeadmaster(int cid);
+    public User getUid6(String ename);
 }
