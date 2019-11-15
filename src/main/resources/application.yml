@@ -12,3 +12,5 @@ mybatis:
   type-aliases-package: com.qf.pojo
 pagehelper:
   helper-dialect: mysql
+#  support-methods-arguments: true
+#  params: count=countSql

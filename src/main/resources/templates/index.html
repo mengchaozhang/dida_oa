@@ -30,7 +30,7 @@
       $(function () {
         $.ajax({
           type: "post",
-          url: "https://route.showapi.com/109-35?channelId=&channelName=&id=&maxResult=20&needAllList=0&needContent=0&needHtml=0&page=1&showapi_appid=114469&showapi_timestamp=20191014205258&title=java&showapi_sign=7a979946bef84be9b19e402e8f4a8001",
+          url: "https://route.showapi.com/109-35?channelId=&channelName=&id=&maxResult=20&needAllList=0&needContent=0&needHtml=0&page=1&showapi_appid=114469&showapi_timestamp=20191115115710&title=足球&showapi_sign=7a979946bef84be9b19e402e8f4a8001",
           cache:false,
           dataType:'json',
           success:function (data) {
@@ -211,9 +211,11 @@
     </script>
   </head>
   <body>
-    <!-- navbar-->
+  <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+        <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
+        <div id="datetime">    <script>        setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);    </script></div>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
           <li class="nav-item dropdown mr-3">
             <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">

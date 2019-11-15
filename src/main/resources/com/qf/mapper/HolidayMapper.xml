@@ -181,7 +181,7 @@
     <resultMap id="studentMap" type="student">
         <id property="sid" column="sid"></id>
         <result property="sname" column="sname"></result>
-        <result property="cid" column="cid"></result>
+        <!--<result property="cid" column="cid"></result>-->
         <association property="user" column="uid" resultMap="user4Map"></association>
     </resultMap>
     <resultMap id="user4Map" type="user">

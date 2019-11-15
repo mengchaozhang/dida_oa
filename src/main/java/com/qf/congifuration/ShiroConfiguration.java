@@ -44,6 +44,11 @@ public class ShiroConfiguration {
         map.put("/goLogin", "anon");
         map.put("/**", "authc");
         map.put("/logout.action", "logout");
+        map.put("/css/**", "anon");
+        map.put("/fonts/**", "anon");
+        map.put("/img/**", "anon");
+        map.put("/js/**", "anon");
+        map.put("/vendor/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }

@@ -3,13 +3,14 @@ package com.qf.service.impl;
 import com.qf.mapper.EmployeeMapper;
 import com.qf.mapper.StudentMapper;
 import com.qf.mapper.WeekReportMapper;
-import com.qf.pojo.*;
+import com.qf.pojo.Student;
+import com.qf.pojo.User;
+import com.qf.pojo.WeekReport;
 import com.qf.service.WeekReportManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,13 +58,12 @@ public class WeekReportManagerServiceImpl implements WeekReportManagerService {
     }
 
     @Override
-    public List<WeekReport> getWeekReportBySidLikeTitle(int uid, String title) {
-        Student student = studentMapper.getStudentByUid(uid);
-        return weekReportMapper.getWeekReportBySidLikeTitle(student.getSid(), title);
+    public List<WeekReport> getWeekReportBySidLikeTitle(int sid, String title) {
+        return weekReportMapper.getWeekReportBySidLikeTitle(sid, title);
     }
 
     @Override
-    public List<WeekReport> getWeekReportBySidList(int cid) {
+    public List<WeekReport> getWeekReportBySidList(List<Integer> sidList) {
        /* Employee employee = employeeMapper.getEmployeeByUid(user.getUid());
         Classes classes = null;
         if ("teacher".equals(user.getRolename())) {
@@ -72,11 +72,6 @@ public class WeekReportManagerServiceImpl implements WeekReportManagerService {
             classes = employeeMapper.getClassesByHeadmasterEid(employee.getEid());
         }*/
 
-        List<Student> studentList = studentMapper.getStudentListBycid(cid);
-        ArrayList<Integer> sidList = new ArrayList<>();
-        for (Student student : studentList) {
-            sidList.add(student.getSid());
-        }
         return weekReportMapper.getWeekReportBySidList(sidList);
     }
 

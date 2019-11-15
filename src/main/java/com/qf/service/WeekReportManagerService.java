@@ -17,6 +17,6 @@ public interface WeekReportManagerService {
 
     public List<WeekReport> getWeekReportBySidLikeTitle(int uid, String title);
 
-    public List<WeekReport> getWeekReportBySidList(int cid);
+    public List<WeekReport> getWeekReportBySidList(List<Integer> sidList);
 
 }

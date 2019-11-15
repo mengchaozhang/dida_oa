@@ -28,7 +28,8 @@
 <body>
 <!-- navbar-->
 <header class="header">
-    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
+    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
+        <div id="datetime">    <script>        setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);    </script></div>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
             <li class="nav-item dropdown mr-3">
                 <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
@@ -287,10 +288,10 @@
                                     <tr>
                                         <th>序号</th>
                                         <th style="padding-left: 60px">班级名称</th>
-                                        <th style="padding-left: 60px">科目名称</th>
-                                        <th style="padding-left: 40px">阶段</th>
-                                        <th style="padding-left: 30px">授课老师</th>
-                                        <th style="padding-left: 30px">班主任</th>
+                                        <th style="padding-left: 15px">科目名称</th>
+                                        <th style="padding-left: 40px;width: 140px;">阶段</th>
+                                        <th style="padding-left: 20px;width: 130px;">授课老师</th>
+                                        <th style="padding-left: 30px;width: 130px;">班主任</th>
                                         <th style="padding-left: 25px">操作</th>
                                         <th style="padding-left: 25px">操作</th>
                                     </tr>

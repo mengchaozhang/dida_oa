@@ -64,7 +64,7 @@
         <result property="password" column="password"/>
         <result property="rolename" column="rolename"/>
     </resultMap>
-    <select id="getWeekReportBySidLikeTitle" parameterType="java.lang.String" resultMap="weekReportMap">
+    <select id="getWeekReportBySidLikeTitle" resultMap="weekReportMap">
         select * from weekreport
          <where>
              <if test="param1 != null">
