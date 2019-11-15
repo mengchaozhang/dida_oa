@@ -28,7 +28,7 @@
 <body>
 <!-- navbar-->
 <header class="header">
-    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
+    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Welcome DiDa</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
             <li class="nav-item dropdown mr-3">
                 <div aria-labelledby="notifications" class="dropdown-menu"><a href="#" class="dropdown-item">
@@ -296,7 +296,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <form action="BJXG" method="post" th:each="a,var:${#httpSession.getAttribute('BJlist')}">
+                                    <form action="BJXG" method="post" th:each="a,var:${#httpSession.getAttribute('BJlist').list}">
                                         <tr>
                                             <td th:text="${var.count}"></td>
                                             <td>
@@ -398,6 +398,16 @@
                         </div>
                     </div>
                 </div>
+                <a th:href="@{BJGL(pageNum=1)}" th:text="首页"></a>
+                <span th:if="${!#httpSession.getAttribute('BJlist').hasPreviousPage}">上一页</span>
+                <a th:if="${#httpSession.getAttribute('BJlist').hasPreviousPage}" th:href="@{BJGL(pageNum=${#httpSession.getAttribute('BJlist').prePage})}" th:text="上一页"></a>
+                <!--显示所有页码，navigatepageNums表示所有页码的数组集合-->
+                <span th:each="i: ${#httpSession.getAttribute('BJlist').navigatepageNums}">
+        <a th:href="@{BJGL(pageNum=${i})}" th:text="${i}"></a>
+</span>
+                <a th:if="${#httpSession.getAttribute('BJlist').hasNextPage}" th:href="@{BJGL(pageNum=${#httpSession.getAttribute('BJlist').nextPage})}" th:text="下一页"></a>
+                <span th:if="${!#httpSession.getAttribute('BJlist').hasNextPage}">下一页</span>
+                <a th:href="@{BJGL(pageNum=${#httpSession.getAttribute('BJlist').lastPage})}" th:text="尾页"></a>
             </section>
         </div>
     </div>

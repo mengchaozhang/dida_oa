@@ -291,7 +291,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="a,var:${#httpSession.getAttribute('KClist')}">
+                                    <tr th:each="a,var:${#httpSession.getAttribute('KClist').list}">
                                         <td th:text="${var.count}"></td>
                                         <td th:text="${a.courseName}"></td>
                                         <td>
@@ -328,6 +328,16 @@
                         </div>
                     </div>
                 </div>
+                <a th:href="@{KCGL(pageNum=1)}" th:text="首页"></a>
+                <span th:if="${!#httpSession.getAttribute('KClist').hasPreviousPage}">上一页</span>
+                <a th:if="${#httpSession.getAttribute('KClist').hasPreviousPage}" th:href="@{KCGL(pageNum=${#httpSession.getAttribute('KClist').prePage})}" th:text="上一页"></a>
+                <!--显示所有页码，navigatepageNums表示所有页码的数组集合-->
+                <span th:each="i: ${#httpSession.getAttribute('KClist').navigatepageNums}">
+        <a th:href="@{KCGL(pageNum=${i})}" th:text="${i}"></a>
+</span>
+                <a th:if="${#httpSession.getAttribute('KClist').hasNextPage}" th:href="@{KCGL(pageNum=${#httpSession.getAttribute('KClist').nextPage})}" th:text="下一页"></a>
+                <span th:if="${!#httpSession.getAttribute('KClist').hasNextPage}">下一页</span>
+                <a th:href="@{KCGL(pageNum=${#httpSession.getAttribute('KClist').lastPage})}" th:text="尾页"></a>
             </section>
         </div>
     </div>

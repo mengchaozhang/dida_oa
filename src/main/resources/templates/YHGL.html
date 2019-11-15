@@ -134,7 +134,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <form method="post" action="YHXG" th:each="a,var:${#httpSession.getAttribute('YHlist')}">
+                                    <form method="post" action="YHXG" th:each="a,var:${#httpSession.getAttribute('YHlist').list}">
                                         <tr>
                                             <td th:text="${var.count}"></td>
                                             <td>
@@ -218,6 +218,16 @@
                         </div>
                     </div>
                 </div>
+                <a th:href="@{YHGL(pageNum=1)}" th:text="首页"></a>
+                <span th:if="${!#httpSession.getAttribute('YHlist').hasPreviousPage}">上一页</span>
+                <a th:if="${#httpSession.getAttribute('YHlist').hasPreviousPage}" th:href="@{YHGL(pageNum=${#httpSession.getAttribute('YHlist').prePage})}" th:text="上一页"></a>
+                <!--显示所有页码，navigatepageNums表示所有页码的数组集合-->
+                <span th:each="i: ${#httpSession.getAttribute('YHlist').navigatepageNums}">
+        <a th:href="@{YHGL(pageNum=${i})}" th:text="${i}"></a>
+</span>
+                <a th:if="${#httpSession.getAttribute('YHlist').hasNextPage}" th:href="@{YHGL(pageNum=${#httpSession.getAttribute('YHlist').nextPage})}" th:text="下一页"></a>
+                <span th:if="${!#httpSession.getAttribute('YHlist').hasNextPage}">下一页</span>
+                <a th:href="@{YHGL(pageNum=${#httpSession.getAttribute('YHlist').lastPage})}" th:text="尾页"></a>
             </section>
         </div>
     </div>

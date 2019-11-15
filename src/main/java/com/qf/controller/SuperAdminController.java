@@ -80,7 +80,7 @@ public class SuperAdminController {
     public String KCHHL(HttpServletRequest request,@RequestParam(defaultValue = "1") int pageNum){
      /*   PageHelper.startPage(pageNum,5);
        List<User> userList = userService.getUserList();
-        PageInfo<User> pageInfo = new PageInfo<User>(userList);*/
+        PageInfo<Classes> pageInfo = new PageInfo<Classes>(list);*/
         Classes classes = new Classes();
         Course course = new Course();
         //班主任名称集合
@@ -94,15 +94,18 @@ public class SuperAdminController {
         user.setRolename("teacher");
         employee.setUser(user);
         List<Employee>JSlist = superAdmin_employeeService.YGCK(employee);
-
+        PageHelper.startPage(pageNum,5);
         List<Classes>list = superAdmin_classesService.BJCK(classes);
         List<Course> list1 = superAdmin_courseService.KCCK(course);
+        //分页
 
-        request.getSession().setAttribute("BJlist",list);
+        PageInfo<Classes> pageInfo = new PageInfo<Classes>(list);
+
+        request.getSession().setAttribute("BJlist",pageInfo);
         request.getSession().setAttribute("KClist",list1);
         request.getSession().setAttribute("JSlist",JSlist);
         request.getSession().setAttribute("BZRlist",BZRlist);
-        System.out.println(list.size());
+        System.out.println(list);
         System.out.println(list1.size());
         System.out.println(JSlist.size());
         System.out.println(BZRlist.size());
@@ -168,12 +171,17 @@ public class SuperAdminController {
 
     //课程管理
     @RequestMapping("KCGL")
-    public String KCGL(HttpServletRequest request){
+    public String KCGL(HttpServletRequest request,@RequestParam(defaultValue = "1") int pageNum){
         Course course =new Course();
         System.out.println(course);
         System.out.println("111111111111111111");
+        PageHelper.startPage(pageNum,5);
         List<Course>list = superAdmin_courseService.KCCK(course);
-        request.getSession().setAttribute("KClist",list);
+
+
+        PageInfo<Course> pageInfo = new PageInfo<Course>(list);
+
+        request.getSession().setAttribute("KClist",pageInfo);
         System.out.println("2222222222222222222");
         System.out.println(list);
         return "KCGL";
@@ -201,19 +209,24 @@ public class SuperAdminController {
 
     //员工管理
     @RequestMapping("YGGL")
-    public String YGGL(HttpServletRequest request,String string){
+    public String YGGL(HttpServletRequest request,String string,@RequestParam(defaultValue = "1") int pageNum){
         if (string!=null){
+            PageHelper.startPage(pageNum,5);
+           // PageInfo<Classes> pageInfo = new PageInfo<Classes>(list);
           List<Employee>list = superAdmin_employeeService.YGMHCK(string);
-            request.getSession().setAttribute("YGlist",list);
+            PageInfo<Employee> pageInfo = new PageInfo<Employee>(list);
+            request.getSession().setAttribute("YGlist",pageInfo);
             return "YGGL";
         }else{
         Employee employee = new Employee();
         User user = new User();
         employee.setUser(user);
+            PageHelper.startPage(pageNum,5);
         List<Employee>list = superAdmin_employeeService.YGCK(employee);
+            PageInfo<Employee> pageInfo = new PageInfo<Employee>(list);
         System.out.println("1111111111111111111111111");
         System.out.println(list);
-        request.getSession().setAttribute("YGlist",list);
+        request.getSession().setAttribute("YGlist",pageInfo);
         return "YGGL";}
     }
     @RequestMapping("YGXG")
@@ -244,21 +257,27 @@ public class SuperAdminController {
 
     //用户管理
     @RequestMapping("YHGL")
-    public String YHGL(HttpServletRequest request,String string){
+    public String YHGL(HttpServletRequest request,String string,@RequestParam(defaultValue = "1") int pageNum){
         if (string!=null){
             Role role =new Role();
            List<Role>roles = superAdmin_roleService.RCK(role);
             request.getSession().setAttribute("QXlist",roles);
+            PageHelper.startPage(pageNum,5);
+            // PageInfo<Classes> pageInfo = new PageInfo<Classes>(list);
             List<User>list = superAdmin_userService.UMHCK(string);
-            request.getSession().setAttribute("YHlist",list);
+            PageInfo<User> pageInfo = new PageInfo<User>(list);
+            request.getSession().setAttribute("YHlist",pageInfo);
             return "YHGL";
         }else {
         User user = new User();
             Role role =new Role();
             List<Role>roles = superAdmin_roleService.RCK(role);
             request.getSession().setAttribute("QXlist",roles);
+            PageHelper.startPage(pageNum,5);
+            // PageInfo<Classes> pageInfo = new PageInfo<Classes>(list);
        List<User>list = superAdmin_userService.UCK(user);
-       request.getSession().setAttribute("YHlist",list);
+            PageInfo<User> pageInfo = new PageInfo<User>(list);
+       request.getSession().setAttribute("YHlist",pageInfo);
        return "YHGL";}
     }
 
