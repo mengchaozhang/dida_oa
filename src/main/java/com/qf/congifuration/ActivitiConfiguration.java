@@ -14,9 +14,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-/**
- * peizhi
- */
 @Configuration
 public class ActivitiConfiguration {
 
